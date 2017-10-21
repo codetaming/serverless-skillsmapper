@@ -14,12 +14,11 @@ provider:
   region: ${self:custom.private.region}
   environment:
     NEO4J_URL: ${self:custom.private.neo4j-url}
+    DEFAULT_PHOTO_URL: ${self:custom.resources.default-photo-url}
 
 functions:
   getAllPeople:
     handler: getAllPeople.getAllPeople
-    environment:
-      DEFAULT_PHOTO_URL: ${self:custom.resources.default-photo-url}
     events:
       - http:
           path: profiles
@@ -41,7 +40,7 @@ functions:
             - ${self:custom.events.no-photo-found}
     events:
       - http:
-          path: profiles
+          path: profile
           method: get
           cors: true
           request:
@@ -49,3 +48,22 @@ functions:
               querystrings:
                 email: false
                 hash: false
+  getAllSkills:
+    handler: getAllSkills.getAllSkills
+    events:
+      - http:
+          path: skills
+          method: get
+          cors: true
+  getSkill:
+    handler: getSkill.getSkill
+    events:
+      - http:
+          path: skills/{tag}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                tag: true
+
