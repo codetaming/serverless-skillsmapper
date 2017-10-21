@@ -46,7 +46,7 @@ module.exports.getAllPeople = (event, context, callback) => {
 
         const response = {
           statusCode: 200,
-          body: results
+          body: JSON.stringify(results)
         }
 
         callback(null, response)

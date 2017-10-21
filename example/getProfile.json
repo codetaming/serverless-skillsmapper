@@ -1,3 +1,56 @@
 {
-  "email": "dvaughan@ebi.ac.uk"
+  "resource": "/profiles",
+  "path": "/profiles",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-US,en;q=0.8",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "GB",
+    "Host": "hpugjiissj.execute-api.eu-west-2.amazonaws.com",
+    "upgrade-insecure-requests": "1",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
+    "Via": "2.0 3965285cac2a9323992ecbe26f94d453.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "MoTr6JyZR3DaQicjcqI0WqjZljhkdl78w5GWe9kTs9JB-OjJ0Ax31Q==",
+    "X-Amzn-Trace-Id": "Root=1-59eb70df-7b95212a21c4ff4a2dbf7fcd",
+    "X-Forwarded-For": "188.29.165.70, 216.137.62.56",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "queryStringParameters": {
+    "email": "dvaughan@ebi.ac.uk"
+  },
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "path": "/dev/profiles",
+    "accountId": "226475284860",
+    "resourceId": "wb35rh",
+    "stage": "dev",
+    "requestId": "021dc4c3-b67a-11e7-997f-b1e8027ca308",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "apiKey": "",
+      "sourceIp": "188.29.165.70",
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
+      "user": null
+    },
+    "resourcePath": "/profiles",
+    "httpMethod": "GET",
+    "apiId": "hpugjiissj"
+  },
+  "body": null,
+  "isBase64Encoded": false
 }

@@ -3,17 +3,18 @@ const AWSXRay = require('aws-xray-sdk-core')
 const AWS = AWSXRay.captureAWS(require('aws-sdk'))
 
 module.exports.getProfile = (event, context, callback) => {
+  const queryStringParameters = event.queryStringParameters
   const httpUrlForTransaction = process.env.NEO4J_URL
   const statements = []
   let filterField = ''
   let filter = ''
-  if (event.hash !== undefined) {
+  if (queryStringParameters.hash !== undefined) {
     filterField = 'hash'
-    filter = event.hash
+    filter = queryStringParameters.hash
   }
-  if (event.email !== undefined) {
+  if (queryStringParameters.email !== undefined) {
     filterField = 'email'
-    filter = event.email
+    filter = queryStringParameters.email
   }
   if (filterField.length > 0) {
     const skillProfileQuery = 'match (p:Person { ' + filterField + ': {filter}} ) ' +
@@ -50,7 +51,7 @@ module.exports.getProfile = (event, context, callback) => {
             }
             const response = {
               statusCode: 200,
-              body: profile
+              body: JSON.stringify(profile)
             }
             callback(null, response)
           }
@@ -59,7 +60,7 @@ module.exports.getProfile = (event, context, callback) => {
   }
 }
 
-function informMissingPhoto (profile, context) {
+function informMissingPhoto (profile) {
   const person = {}
   person.email = profile.email
   person.name = profile.name
@@ -67,7 +68,7 @@ function informMissingPhoto (profile, context) {
   const personStr = JSON.stringify(person)
   sns.publish({
     Message: personStr,
-    TargetArn: process.env.SNS_TOPIC_NO_PHOTO_FOUND
+    TargetArn: process.env.SNS_NO_PHOTO
   }, function (err) {
     if (err) {
       console.error('Error publishing to SNS no-photo')
