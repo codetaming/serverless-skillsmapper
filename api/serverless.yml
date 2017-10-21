@@ -1,0 +1,25 @@
+service: ${self:custom.skillsmapper.name}-api
+
+frameworkVersion: ">=1.0.0 <2.0.0"
+
+custom:
+  skillsmapper: ${file(../skillsmapper.yml)}
+  private: ${file(../private.yml)}
+  resources: ${file(../resources.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ${self:custom.private.region}
+
+functions:
+  getAllPeople:
+    handler: api.getAllPeople
+    environment:
+      NEO4J_URL: ${self:custom.private.neo4j-url}
+      DEFAULT_PHOTO_URL: ${self:custom.resources.default-photo-url}
+    events:
+      - http:
+          path: profiles
+          method: get
+          cors: true
