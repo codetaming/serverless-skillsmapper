@@ -48,6 +48,18 @@ functions:
               querystrings:
                 email: false
                 hash: false
+  getProfileSkills:
+    handler: getProfileSkills.getProfileSkills
+    events:
+      - http:
+          path: profile/skills
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                email: false
+                hash: false
   getAllSkills:
     handler: getAllSkills.getAllSkills
     events:
@@ -60,6 +72,29 @@ functions:
     events:
       - http:
           path: skills/{tag}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                tag: true
+  getSkillDescription:
+    handler: getSkillDescription.getSkillDescription
+    environment:
+      SNS_NO_DESCRIPTION:
+        Fn::Join:
+          - ""
+          - - "arn:aws:sns:"
+            - Ref: "AWS::Region"
+            - ":"
+            - Ref: "AWS::AccountId"
+            - ":"
+            - ${self:custom.skillsmapper.name}
+            - "-"
+            - ${self:custom.events.no-description-found}
+    events:
+      - http:
+          path: skills/{tag}/description
           method: get
           cors: true
           request:
