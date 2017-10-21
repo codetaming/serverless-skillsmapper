@@ -5,6 +5,7 @@ frameworkVersion: ">=1.0.0 <2.0.0"
 custom:
   skillsmapper: ${file(../skillsmapper.yml)}
   private: ${file(../private.yml)}
+  events: ${file(../events.yml)}
   resources: ${file(../resources.yml)}
 
 provider:
@@ -14,7 +15,7 @@ provider:
 
 functions:
   getAllPeople:
-    handler: api.getAllPeople
+    handler: getAllPeople.getAllPeople
     environment:
       NEO4J_URL: ${self:custom.private.neo4j-url}
       DEFAULT_PHOTO_URL: ${self:custom.resources.default-photo-url}
@@ -23,3 +24,27 @@ functions:
           path: profiles
           method: get
           cors: true
+  getProfile:
+    handler: getProfile.getProfile
+    environment:
+      NEO4J_URL: ${self:custom.private.neo4j-url}
+      SNS_TOPIC_NO_PHOTO_FOUND:
+        Fn::Join:
+          - ""
+          - - "arn:aws:sns:"
+            - Ref: "AWS::Region"
+            - ":"
+            - Ref: "AWS::AccountId"
+            - ":"
+            - ${self:custom.skillsmapper.name}
+            - "-"
+            - ${self:custom.events.no-photo-found}
+    events:
+      - http:
+          path: profiles/{id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
