@@ -104,7 +104,7 @@ resources:
           - AttributeName: id
             AttributeType: S
           - AttributeName: timestamp
-            AttributeType: N
+            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
