@@ -1,142 +1,21 @@
 {
   "Records": [
     {
-      "eventSource": "aws:ses",
-      "eventVersion": "1.0",
-      "ses": {
-        "mail": {
-          "timestamp": "2016-05-19T06:44:58.166Z",
-          "source": "dan@codetaming.org",
-          "messageId": "gm5sv34c4tb06dq37k07gs1od24u3ad04b8k2vo1",
-          "destination": [
-            "i.work.with@skillsmapper.site",
-            "test@codetaming.org",
-            "dvaughan@ebi.ac.uk"
-          ],
-          "headersTruncated": false,
-          "headers": [
-            {
-              "name": "Return-Path",
-              "value": "<dan@codetaming.org>"
-            },
-            {
-              "name": "Received",
-              "value": "from mail-oi0-f49.google.com (mail-oi0-f49.google.com [209.85.218.49]) by inbound-smtp.eu-west-1.amazonaws.com with SMTP id gm5sv34c4tb06dq37k07gs1od24u3ad04b8k2vo1 for i.work.with@skillsmapper.site; Thu, 19 May 2016 06:44:58 +0000 (UTC)"
-            },
-            {
-              "name": "X-SES-Spam-Verdict",
-              "value": "PASS"
-            },
-            {
-              "name": "X-SES-Virus-Verdict",
-              "value": "PASS"
-            },
-            {
-              "name": "Received-SPF",
-              "value": "neutral (spfCheck: 209.85.218.49 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.218.49; envelope-from=dan@codetaming.org; helo=mail-oi0-f49.google.com;"
-            },
-            {
-              "name": "Authentication-Results",
-              "value": "amazonses.com; spf=neutral (spfCheck: 209.85.218.49 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.218.49; envelope-from=dan@codetaming.org; helo=mail-oi0-f49.google.com; dkim=pass header.i=@codetaming-org.20150623.gappssmtp.com;"
-            },
-            {
-              "name": "Received",
-              "value": "by mail-oi0-f49.google.com with SMTP id v145so113887246oie.0 for <i.work.with@skillsmapper.site>; Wed, 18 May 2016 23:44:57 -0700 (PDT)"
-            },
-            {
-              "name": "DKIM-Signature",
-              "value": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=codetaming-org.20150623.gappssmtp.com; s=20150623; h=mime-version:date:message-id:subject:from:to:cc; bh=HIwZRdM+wVUVkmSfyDTWMkPLSv/vl1aqtiLshnrsPeo=; b=dol2E/CNy80+ihsX9GdWjqSg3tpmzAxBJNocxMX6Sueaz26PGiwPT0CPiBCX4OgI4qucmIuNonqa3jA241wPJtMR0JAR35wEpXcAx27wSeh2kXHEbfPh9LdUOQZJIIfZ1+4DbrrHOPHZutgpJL4BtlUEsu9H/CJL08wPiWyzq6JVua0nscEh78w3vEk399PmQskigcacYORxMqmCdHPAWhsc4HPIlN4x7d84TLd0Remymp2nJIUTAKjGGRqXPs0NOL7Gn7XXP77J/L0/8ITDz9rjQ9hO51nk1jwwNAAu88LCst9pKo+RhpOfIXCduZTgo/X6dn7/sa93xYyNkNXp3Q=="
-            },
-            {
-              "name": "X-Google-DKIM-Signature",
-              "value": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20130820; h=x-gm-message-state:mime-version:date:message-id:subject:from:to:cc; bh=HIwZRdM+wVUVkmSfyDTWMkPLSv/vl1aqtiLshnrsPeo=; b=lJWRWX1dtZJIafYI6wytLQzV4VPmffz1xEDluCuAqKqrvvOlSWT1s9NBrxawKeaWrB mg90wzofOP4OgIGKZucSJIRD9RSc1N7Ae87eU6tOPiu2rrtA7mc1qHmiXHiVXQNsuYDO RUcGtvQbugOc/s8Mli9wSAN33xW1gZhMDAHrrFzafKtkv5oY286RWkwgIs92wmzfdu/H 4XrwgP0sgnQAXsltBFLeA04Vi9373xebjuqGN8oTx8TMfwQOId9klM4yL15ZpwJvRG1i stx5iVnSgAGnmeteSJXbuA63YFOj38BFa7lnp4JU2nqDIqmucIwl5kcqOKvconJFx/jg u+ag=="
-            },
-            {
-              "name": "X-Gm-Message-State",
-              "value": "AOPr4FVerkdlJkdUGAGt6/CapILRYuPDrqX8OjJXrdVZep11xjmD3KSDQuGJ8Rje7B5LDhCQ4XwFzBD9Nhgg6Q=="
-            },
-            {
-              "name": "MIME-Version",
-              "value": "1.0"
-            },
-            {
-              "name": "X-Received",
-              "value": "by 10.157.40.123 with SMTP id h56mr7167760otd.33.1463640296615; Wed, 18 May 2016 23:44:56 -0700 (PDT)"
-            },
-            {
-              "name": "Received",
-              "value": "by 10.202.72.137 with HTTP; Wed, 18 May 2016 23:44:56 -0700 (PDT)"
-            },
-            {
-              "name": "Date",
-              "value": "Thu, 19 May 2016 07:44:56 +0100"
-            },
-            {
-              "name": "Message-ID",
-              "value": "<CA+eUPda8kchjOwviDdZUmSf1iyRULg-6Tf+ouw8q8ieVHCvTsw@mail.gmail.com>"
-            },
-            {
-              "name": "Subject",
-              "value": ""
-            },
-            {
-              "name": "From",
-              "value": "Daniel Vaughan <dan@codetaming.org>"
-            },
-            {
-              "name": "To",
-              "value": "i.work.with@skillsmapper.site"
-            },
-            {
-              "name": "Cc",
-              "value": "test@codetaming.org, Daniel Vaughan <dvaughan@ebi.ac.uk>"
-            },
-            {
-              "name": "Content-Type",
-              "value": "multipart/alternative; boundary=001a113e370ef58da305332c4fcc"
-            }
-          ],
-          "commonHeaders": {
-            "returnPath": "dan@codetaming.org",
-            "from": [
-              "Daniel Vaughan <dan@codetaming.org>"
-            ],
-            "date": "Thu, 19 May 2016 07:44:56 +0100",
-            "to": [
-              "i.work.with@skillsmapper.site"
-            ],
-            "cc": [
-              "test@codetaming.org",
-              "Daniel Vaughan <dvaughan@ebi.ac.uk>"
-            ],
-            "messageId": "<CA+eUPda8kchjOwviDdZUmSf1iyRULg-6Tf+ouw8q8ieVHCvTsw@mail.gmail.com>",
-            "subject": ""
-          }
-        },
-        "receipt": {
-          "timestamp": "2016-05-19T06:44:58.166Z",
-          "processingTimeMillis": 564,
-          "recipients": [
-            "i.work.with@skillsmapper.site"
-          ],
-          "spamVerdict": {
-            "status": "PASS"
-          },
-          "virusVerdict": {
-            "status": "PASS"
-          },
-          "spfVerdict": {
-            "status": "GRAY"
-          },
-          "dkimVerdict": {
-            "status": "GRAY"
-          },
-          "action": {
-            "type": "Lambda",
-            "functionArn": "arn:aws:lambda:eu-west-1:226475284860:function:receive-email-development",
-            "invocationType": "Event"
-          }
-        }
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:eu-west-1:226475284860:skills-mapper-new-email:0148ea1b-a575-4b8c-ad5e-2547b830c74d",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "bb357bd2-16ba-5a1e-ab31-29b4810a3fdd",
+        "TopicArn": "arn:aws:sns:eu-west-1:226475284860:skills-mapper-new-email",
+        "Subject": "Amazon SES Email Receipt Notification",
+        "Message": "{\"notificationType\":\"Received\",\"mail\":{\"timestamp\":\"2017-10-22T12:56:16.347Z\",\"source\":\"dan@codetaming.org\",\"messageId\":\"9j4476hdorqrjdpi75b9p5b13ft9iklu224hi9o1\",\"destination\":[\"i.am.learning@skillsmapper.org\"],\"headersTruncated\":false,\"headers\":[{\"name\":\"Return-Path\",\"value\":\"<dan@codetaming.org>\"},{\"name\":\"Received\",\"value\":\"from mail-it0-f41.google.com (mail-it0-f41.google.com [209.85.214.41]) by inbound-smtp.eu-west-1.amazonaws.com with SMTP id 9j4476hdorqrjdpi75b9p5b13ft9iklu224hi9o1 for i.am.learning@skillsmapper.org; Sun, 22 Oct 2017 12:56:16 +0000 (UTC)\"},{\"name\":\"Received-SPF\",\"value\":\"none (spfCheck: 209.85.214.41 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.214.41; envelope-from=dan@codetaming.org; helo=mail-it0-f41.google.com;\"},{\"name\":\"Authentication-Results\",\"value\":\"amazonses.com; spf=none (spfCheck: 209.85.214.41 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.214.41; envelope-from=dan@codetaming.org; helo=mail-it0-f41.google.com; dkim=pass header.i=@codetaming-org.20150623.gappssmtp.com;\"},{\"name\":\"X-SES-RECEIPT\",\"value\":\"AEFBQUFBQUFBQUFFTWFwZmR2TnFwZ2xaUklISDFOaFhGdGxkWnV0TjRCNHRsamdVU1FJNjFEWStLdkRPV0pPNkdLOTN6OU8wMGtpK1NTak9HWjlLMENTd3BHQnBDR0I4eXVIZnNZVnN6MlgrOVo3NFFTK0Q4aTJCakdLYThTdTlQQnRDQ2szVjBPR3FiZTVlU0dod0NQRnMwYkt3dEtNMFY4NTZSVmsxR0FFUEFKR0EzbkVmOEh6QnB1Y0QrSmtFY1ZGeUpjR0IvdU8wbnhScGZwOTFRbXZvYTF4KzczcEZlYVVvaTZUWGdXb0dtUDh1VW9QY3U0VXgrUVN6SUR2N09vSDFCNldndG91OHFwSVZncnR5ZEtJWFQyR3BtQWRoag==\"},{\"name\":\"X-SES-DKIM-SIGNATURE\",\"value\":\"a=rsa-sha256; q=dns/txt; b=IkLARZavj2BrDek1Qh9jKUsHJEkE0kTE6VY0wDxDgmle1wzdnUEBXpFiXdfwbnZ1zsiFbfQyPbpROjEbYQ4WDRj3T2AstsD5e8A+OI7pdHgu8Dx6jJ7yWdv/fQQdeioa1qUoY/8gHtVCpi38Mw1+I1hJl8EFoaEppsPAC5AGxKI=; c=relaxed/simple; s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1508676976; v=1; bh=C6sOfdOpZhIacjOdY4MFfiP4bRvTbCONJ49oBJyS/IM=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;\"},{\"name\":\"Received\",\"value\":\"by mail-it0-f41.google.com with SMTP id c3so3118222itc.3 for <i.am.learning@skillsmapper.org>; Sun, 22 Oct 2017 05:56:16 -0700 (PDT)\"},{\"name\":\"DKIM-Signature\",\"value\":\"v=1; a=rsa-sha256; c=relaxed/relaxed; d=codetaming-org.20150623.gappssmtp.com; s=20150623; h=mime-version:from:date:message-id:subject:to; bh=sF/hzY2lP1Ehdy55TFzhcLbh3S3KSF9AmtRLgaXxce8=; b=MoyPqo1OVXKg0rIKuwHBwnuVdBereayVcN7XK44uRfqqrsR7PrZZISFRmR1g7Aga7iCIAR9N7UUJNy8Tscvj+2zVxouJqT4YRSV9jbd5ycnx6PyTzgecaiTTuVvcH7sFgOFfHphjHlU8Rdb7PVf68lhlzM+P1t46NFaGLuBSy2RvHZEr3YabTXGD/cVtNA1519xjqT8J/qnu7ysI+NHTXHKRlyijUDLOONvVF0EFvAcDmSWlDh906WTqqH11vnZV9bH5ldrd4ZeRSLn5me1pB70IytzXTlrzW+rGGGn1l4x5h069ISicYswv00cnE3hafUreIRZz5RIU/EEAz3sr5A==\"},{\"name\":\"X-Google-DKIM-Signature\",\"value\":\"v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20161025; h=x-gm-message-state:mime-version:from:date:message-id:subject:to; bh=sF/hzY2lP1Ehdy55TFzhcLbh3S3KSF9AmtRLgaXxce8=; b=oq3o+QEIlTT3Yi6YXpHfZ4BUa7qv7CjB1mw/p4WrzM54tsIm9YTYFKVbDROP8aadOl xC/eiMvKUFhtZyHNaqbTcdQxg8pakQgviATPhZ8fgQk+WN3ogywem8BEIDYNiIPTO9Wx vVLv8v7Giu/ZJXBYiw2S9968wQpx75M80FlCZfExlO/HjG6m2lHYVPLjyfsVGYcEuPQw 8BePOWPfxcP3i7MSuuA+wHxLEgmZuTAXmFrthYR3tcb4IMxbJu5rOJJvlT5gTsl0CX4D O/SqVfSahMgBjRrmxV1aYVpAg/ji/IkEGMBldbjR8azhPUXu//eQwaMBnS0KoDk92r4S gYNw==\"},{\"name\":\"X-Gm-Message-State\",\"value\":\"AMCzsaVMgkbQbAG7pa+swrPaTu26b/TLX99Erbe8XoP916anyEt7v2aZ 06jcaqcpwuMZH6J1+lKOAeHokeoZ5Lljp5Bzk4ButN3A\"},{\"name\":\"X-Google-Smtp-Source\",\"value\":\"ABhQp+TbwxAgBSECOT4Qixq2MDAvtwBKJ9ZEw1+mQfyPv0JI5mqw69TLWvnh7tYe55MWfR1Djl1sEpZAAjcJjqN/vuQ=\"},{\"name\":\"X-Received\",\"value\":\"by 10.36.39.203 with SMTP id g194mr4962096ita.91.1508676974613; Sun, 22 Oct 2017 05:56:14 -0700 (PDT)\"},{\"name\":\"MIME-Version\",\"value\":\"1.0\"},{\"name\":\"Received\",\"value\":\"by 10.107.182.214 with HTTP; Sun, 22 Oct 2017 05:56:14 -0700 (PDT)\"},{\"name\":\"From\",\"value\":\"Daniel Vaughan <dan@codetaming.org>\"},{\"name\":\"Date\",\"value\":\"Sun, 22 Oct 2017 13:56:14 +0100\"},{\"name\":\"Message-ID\",\"value\":\"<CA+eUPdZn0UtT_u8ohapNqkqfK3uYMG5gZATi=-aGywHL4_f5jQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"test\"},{\"name\":\"To\",\"value\":\"i.am.learning@skillsmapper.org\"},{\"name\":\"Content-Type\",\"value\":\"multipart/alternative; boundary=\\\"001a1147c5a2272849055c223b6a\\\"\"}],\"commonHeaders\":{\"returnPath\":\"dan@codetaming.org\",\"from\":[\"Daniel Vaughan <dan@codetaming.org>\"],\"date\":\"Sun, 22 Oct 2017 13:56:14 +0100\",\"to\":[\"i.am.learning@skillsmapper.org\"],\"messageId\":\"<CA+eUPdZn0UtT_u8ohapNqkqfK3uYMG5gZATi=-aGywHL4_f5jQ@mail.gmail.com>\",\"subject\":\"test\"}},\"receipt\":{\"timestamp\":\"2017-10-22T12:56:16.347Z\",\"processingTimeMillis\":383,\"recipients\":[\"i.am.learning@skillsmapper.org\"],\"spamVerdict\":{\"status\":\"DISABLED\"},\"virusVerdict\":{\"status\":\"DISABLED\"},\"spfVerdict\":{\"status\":\"GRAY\"},\"dkimVerdict\":{\"status\":\"GRAY\"},\"action\":{\"type\":\"SNS\",\"topicArn\":\"arn:aws:sns:eu-west-1:226475284860:skills-mapper-new-email\",\"encoding\":\"UTF8\"}},\"content\":\"Return-Path: <dan@codetaming.org>\\r\\nReceived: from mail-it0-f41.google.com (mail-it0-f41.google.com [209.85.214.41])\\r\\n by inbound-smtp.eu-west-1.amazonaws.com with SMTP id 9j4476hdorqrjdpi75b9p5b13ft9iklu224hi9o1\\r\\n for i.am.learning@skillsmapper.org;\\r\\n Sun, 22 Oct 2017 12:56:16 +0000 (UTC)\\r\\nReceived-SPF: none (spfCheck: 209.85.214.41 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.214.41; envelope-from=dan@codetaming.org; helo=mail-it0-f41.google.com;\\r\\nAuthentication-Results: amazonses.com;\\r\\n spf=none (spfCheck: 209.85.214.41 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.214.41; envelope-from=dan@codetaming.org; helo=mail-it0-f41.google.com;\\r\\n dkim=pass header.i=@codetaming-org.20150623.gappssmtp.com;\\r\\nX-SES-RECEIPT: AEFBQUFBQUFBQUFFTWFwZmR2TnFwZ2xaUklISDFOaFhGdGxkWnV0TjRCNHRsamdVU1FJNjFEWStLdkRPV0pPNkdLOTN6OU8wMGtpK1NTak9HWjlLMENTd3BHQnBDR0I4eXVIZnNZVnN6MlgrOVo3NFFTK0Q4aTJCakdLYThTdTlQQnRDQ2szVjBPR3FiZTVlU0dod0NQRnMwYkt3dEtNMFY4NTZSVmsxR0FFUEFKR0EzbkVmOEh6QnB1Y0QrSmtFY1ZGeUpjR0IvdU8wbnhScGZwOTFRbXZvYTF4KzczcEZlYVVvaTZUWGdXb0dtUDh1VW9QY3U0VXgrUVN6SUR2N09vSDFCNldndG91OHFwSVZncnR5ZEtJWFQyR3BtQWRoag==\\r\\nX-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=IkLARZavj2BrDek1Qh9jKUsHJEkE0kTE6VY0wDxDgmle1wzdnUEBXpFiXdfwbnZ1zsiFbfQyPbpROjEbYQ4WDRj3T2AstsD5e8A+OI7pdHgu8Dx6jJ7yWdv/fQQdeioa1qUoY/8gHtVCpi38Mw1+I1hJl8EFoaEppsPAC5AGxKI=; c=relaxed/simple; s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1508676976; v=1; bh=C6sOfdOpZhIacjOdY4MFfiP4bRvTbCONJ49oBJyS/IM=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;\\r\\nReceived: by mail-it0-f41.google.com with SMTP id c3so3118222itc.3\\r\\n        for <i.am.learning@skillsmapper.org>; Sun, 22 Oct 2017 05:56:16 -0700 (PDT)\\r\\nDKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\\r\\n        d=codetaming-org.20150623.gappssmtp.com; s=20150623;\\r\\n        h=mime-version:from:date:message-id:subject:to;\\r\\n        bh=sF/hzY2lP1Ehdy55TFzhcLbh3S3KSF9AmtRLgaXxce8=;\\r\\n        b=MoyPqo1OVXKg0rIKuwHBwnuVdBereayVcN7XK44uRfqqrsR7PrZZISFRmR1g7Aga7i\\r\\n         CIAR9N7UUJNy8Tscvj+2zVxouJqT4YRSV9jbd5ycnx6PyTzgecaiTTuVvcH7sFgOFfHp\\r\\n         hjHlU8Rdb7PVf68lhlzM+P1t46NFaGLuBSy2RvHZEr3YabTXGD/cVtNA1519xjqT8J/q\\r\\n         nu7ysI+NHTXHKRlyijUDLOONvVF0EFvAcDmSWlDh906WTqqH11vnZV9bH5ldrd4ZeRSL\\r\\n         n5me1pB70IytzXTlrzW+rGGGn1l4x5h069ISicYswv00cnE3hafUreIRZz5RIU/EEAz3\\r\\n         sr5A==\\r\\nX-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\\r\\n        d=1e100.net; s=20161025;\\r\\n        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;\\r\\n        bh=sF/hzY2lP1Ehdy55TFzhcLbh3S3KSF9AmtRLgaXxce8=;\\r\\n        b=oq3o+QEIlTT3Yi6YXpHfZ4BUa7qv7CjB1mw/p4WrzM54tsIm9YTYFKVbDROP8aadOl\\r\\n         xC/eiMvKUFhtZyHNaqbTcdQxg8pakQgviATPhZ8fgQk+WN3ogywem8BEIDYNiIPTO9Wx\\r\\n         vVLv8v7Giu/ZJXBYiw2S9968wQpx75M80FlCZfExlO/HjG6m2lHYVPLjyfsVGYcEuPQw\\r\\n         8BePOWPfxcP3i7MSuuA+wHxLEgmZuTAXmFrthYR3tcb4IMxbJu5rOJJvlT5gTsl0CX4D\\r\\n         O/SqVfSahMgBjRrmxV1aYVpAg/ji/IkEGMBldbjR8azhPUXu//eQwaMBnS0KoDk92r4S\\r\\n         gYNw==\\r\\nX-Gm-Message-State: AMCzsaVMgkbQbAG7pa+swrPaTu26b/TLX99Erbe8XoP916anyEt7v2aZ\\r\\n\\t06jcaqcpwuMZH6J1+lKOAeHokeoZ5Lljp5Bzk4ButN3A\\r\\nX-Google-Smtp-Source: ABhQp+TbwxAgBSECOT4Qixq2MDAvtwBKJ9ZEw1+mQfyPv0JI5mqw69TLWvnh7tYe55MWfR1Djl1sEpZAAjcJjqN/vuQ=\\r\\nX-Received: by 10.36.39.203 with SMTP id g194mr4962096ita.91.1508676974613;\\r\\n Sun, 22 Oct 2017 05:56:14 -0700 (PDT)\\r\\nMIME-Version: 1.0\\r\\nReceived: by 10.107.182.214 with HTTP; Sun, 22 Oct 2017 05:56:14 -0700 (PDT)\\r\\nFrom: Daniel Vaughan <dan@codetaming.org>\\r\\nDate: Sun, 22 Oct 2017 13:56:14 +0100\\r\\nMessage-ID: <CA+eUPdZn0UtT_u8ohapNqkqfK3uYMG5gZATi=-aGywHL4_f5jQ@mail.gmail.com>\\r\\nSubject: test\\r\\nTo: i.am.learning@skillsmapper.org\\r\\nContent-Type: multipart/alternative; boundary=\\\"001a1147c5a2272849055c223b6a\\\"\\r\\n\\r\\n--001a1147c5a2272849055c223b6a\\r\\nContent-Type: text/plain; charset=\\\"UTF-8\\\"\\r\\n\\r\\n-- \\r\\n--\\r\\nDaniel Vaughan\\r\\nThe Code Taming Organisation\\r\\nwww.codetaming.org\\r\\n\\r\\n--001a1147c5a2272849055c223b6a\\r\\nContent-Type: text/html; charset=\\\"UTF-8\\\"\\r\\nContent-Transfer-Encoding: quoted-printable\\r\\n\\r\\n<div dir=3D\\\"ltr\\\"><br clear=3D\\\"all\\\"><div><br></div>-- <br><div class=3D\\\"gmai=\\r\\nl_signature\\\" data-smartmail=3D\\\"gmail_signature\\\"><div dir=3D\\\"ltr\\\">--<div>Dan=\\r\\niel Vaughan</div><div>The Code Taming Organisation</div><div><a href=3D\\\"htt=\\r\\np://www.codetaming.org\\\" target=3D\\\"_blank\\\">www.codetaming.org</a></div></div=\\r\\n></div>\\r\\n</div>\\r\\n\\r\\n--001a1147c5a2272849055c223b6a--\\r\\n\"}",
+        "Timestamp": "2017-10-22T12:56:16.745Z",
+        "SignatureVersion": "1",
+        "Signature": "WEMC9vpIK0B5tZzEy0KGt6fnNxWaOivUG0xGovL7gCzuBwGunRIV0iMZKOhU+ehanA4TvN1m+hYUyB2snMBR1T+DJFc21rCIdae2gW8iFVNXX3Ib/+u5l+QeHKTY+JtDcIhxI8p3cOSV744iFnAvx0GMkkGyvRQNaCmb8jFNIaL2uGa929/uWNHwNAQPYCiwmRL9zqb5TE9LZHScsIlT0a/I9gWKGA4sSJI70P1mGZplC0CKSjPjH5bSDlStIdl1KeSTGrNo1fXOSmV1mFOg5sXCd+sQZSLgvWOCKsMEs7uim9h0cmUTkM6d+ekHzB1YUoqYa5MZ4CQZOCPjJ5uIdQ==",
+        "SigningCertUrl": "https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-433026a4050d206028891664da859041.pem",
+        "UnsubscribeUrl": "https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-west-1:226475284860:skills-mapper-new-email:0148ea1b-a575-4b8c-ad5e-2547b830c74d",
+        "MessageAttributes": {}
       }
     }
   ]

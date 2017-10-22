@@ -2,6 +2,9 @@ service: ${self:custom.skillsmapper.name}-pipeline
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
+plugins:
+  - serverless-step-functions
+
 custom:
   skillsmapper: ${file(../skillsmapper.yml)}
   private: ${file(../private.yml)}
@@ -13,10 +16,28 @@ provider:
   region: ${self:custom.private.region}
   environment:
     NEO4J_URL: ${self:custom.private.neo4j-url}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+       - "sns:Publish"
+      Resource:
+       - "Ref" : "MessageReceived"
 
 functions:
   receiveEmail:
     handler: receiveEmail.receiveEmail
+    environment:
+      SNS_MESSAGE_RECEIVED:
+        Fn::Join:
+          - ""
+          - - "arn:aws:sns:"
+            - Ref: "AWS::Region"
+            - ":"
+            - Ref: "AWS::AccountId"
+            - ":"
+            - ${self:custom.skillsmapper.name}
+            - "-"
+            - ${self:custom.events.message-received}
     events:
       - sns:
           arn:
@@ -31,18 +52,6 @@ functions:
                 - "-"
                 - ${self:custom.events.new-email}
           topicName: ${self:custom.skillsmapper.name}-${self:custom.events.new-email}
-    environment:
-      SNS_NEW_MESSAGE:
-        Fn::Join:
-          - ""
-          - - "arn:aws:sns:"
-            - Ref: "AWS::Region"
-            - ":"
-            - Ref: "AWS::AccountId"
-            - ":"
-            - ${self:custom.skillsmapper.name}
-            - "-"
-            - ${self:custom.events.message-received}
 resources:
   Resources:
     NewEmail:

@@ -4,12 +4,13 @@ const AWS = require('aws-sdk')
 
 module.exports.receiveEmail = (event, context, callback) => {
   console.log(JSON.stringify(event))
-  var sesNotification = event.Records[0].ses
-  var destination = sesNotification.mail.destination
-  var messageId = sesNotification.mail.messageId
-  var source = sesNotification.mail.source
+  var message = event.Records[0].Sns.Message
+  var notification = JSON.parse(message)
+  var destination = notification.mail.destination
+  var messageId = notification.mail.messageId
+  var source = notification.mail.source
   var type = extractType(destination)
-  var tags = extractTagsString(sesNotification)
+  var tags = extractTagsString(notification)
   var people = extractPeople(destination)
 
   var payload = {
@@ -36,7 +37,7 @@ function extractTagsString (sesNotification) {
 }
 
 function extractType (destination) {
-  var type = destination[0].replace('@skillsmapper.site', '')
+  var type = destination[0].replace('@skillsmapper.org', '')
   return type.toLowerCase()
 }
 
@@ -50,14 +51,13 @@ function extractPeople (destination) {
 
 function sendSns (payload) {
   var sns = new AWS.SNS()
-  var payloadStr = JSON.stringify(payload)
-  console.log('Sending new message to SNS with payload: ' + payloadStr)
+  console.log(process.env.SNS_MESSAGE_RECEIVED)
   sns.publish({
-    Message: payloadStr,
-    TargetArn: process.env.SNS_NEW_MESSAGE
+    Message: JSON.stringify(payload),
+    TargetArn: process.env.SNS_MESSAGE_RECEIVED
   }, function (err, data) {
     if (err) {
-      console.error('Error publishing to SNS')
+      console.error('Error publishing to SNS:\n' + JSON.stringify(err))
     } else {
       console.info('Message published to SNS')
     }

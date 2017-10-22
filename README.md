@@ -26,6 +26,10 @@ with data
 serverless invoke local --function getProfile --path ../example/getProfile.json
 ```
 
+## Step Functions
+
+[https://github.com/horike37/serverless-step-functions](https://github.com/horike37/serverless-step-functions)
+
 ## Conventions
 Uses [ESLint](https://eslint.org) with standard style guide to check ES6 syntax.
 
