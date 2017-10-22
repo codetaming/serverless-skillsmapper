@@ -2,11 +2,22 @@ service: ${self:custom.skillsmapper.name}-api
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
+plugins:
+  - serverless-finch
+  - serverless-domain-manager
+
 custom:
   skillsmapper: ${file(../skillsmapper.yml)}
   private: ${file(../private.yml)}
   events: ${file(../events.yml)}
   resources: ${file(../resources.yml)}
+  client:
+    bucketName: ${self:custom.skillsmapper.url}
+  customDomain:
+    domainName: api.skillsmapper.org
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
 
 provider:
   name: aws

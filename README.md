@@ -10,6 +10,11 @@ Deploy a Function
 serverless deploy function -f functionName
 ```
 
+Deploy Client
+```
+serverless client deploy -v
+```
+
 ## Run Locally
 
 [Run a function locally](https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/#)

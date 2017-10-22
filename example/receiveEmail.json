@@ -1,0 +1,143 @@
+{
+  "Records": [
+    {
+      "eventSource": "aws:ses",
+      "eventVersion": "1.0",
+      "ses": {
+        "mail": {
+          "timestamp": "2016-05-19T06:44:58.166Z",
+          "source": "dan@codetaming.org",
+          "messageId": "gm5sv34c4tb06dq37k07gs1od24u3ad04b8k2vo1",
+          "destination": [
+            "i.work.with@skillsmapper.site",
+            "test@codetaming.org",
+            "dvaughan@ebi.ac.uk"
+          ],
+          "headersTruncated": false,
+          "headers": [
+            {
+              "name": "Return-Path",
+              "value": "<dan@codetaming.org>"
+            },
+            {
+              "name": "Received",
+              "value": "from mail-oi0-f49.google.com (mail-oi0-f49.google.com [209.85.218.49]) by inbound-smtp.eu-west-1.amazonaws.com with SMTP id gm5sv34c4tb06dq37k07gs1od24u3ad04b8k2vo1 for i.work.with@skillsmapper.site; Thu, 19 May 2016 06:44:58 +0000 (UTC)"
+            },
+            {
+              "name": "X-SES-Spam-Verdict",
+              "value": "PASS"
+            },
+            {
+              "name": "X-SES-Virus-Verdict",
+              "value": "PASS"
+            },
+            {
+              "name": "Received-SPF",
+              "value": "neutral (spfCheck: 209.85.218.49 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.218.49; envelope-from=dan@codetaming.org; helo=mail-oi0-f49.google.com;"
+            },
+            {
+              "name": "Authentication-Results",
+              "value": "amazonses.com; spf=neutral (spfCheck: 209.85.218.49 is neither permitted nor denied by domain of codetaming.org) client-ip=209.85.218.49; envelope-from=dan@codetaming.org; helo=mail-oi0-f49.google.com; dkim=pass header.i=@codetaming-org.20150623.gappssmtp.com;"
+            },
+            {
+              "name": "Received",
+              "value": "by mail-oi0-f49.google.com with SMTP id v145so113887246oie.0 for <i.work.with@skillsmapper.site>; Wed, 18 May 2016 23:44:57 -0700 (PDT)"
+            },
+            {
+              "name": "DKIM-Signature",
+              "value": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=codetaming-org.20150623.gappssmtp.com; s=20150623; h=mime-version:date:message-id:subject:from:to:cc; bh=HIwZRdM+wVUVkmSfyDTWMkPLSv/vl1aqtiLshnrsPeo=; b=dol2E/CNy80+ihsX9GdWjqSg3tpmzAxBJNocxMX6Sueaz26PGiwPT0CPiBCX4OgI4qucmIuNonqa3jA241wPJtMR0JAR35wEpXcAx27wSeh2kXHEbfPh9LdUOQZJIIfZ1+4DbrrHOPHZutgpJL4BtlUEsu9H/CJL08wPiWyzq6JVua0nscEh78w3vEk399PmQskigcacYORxMqmCdHPAWhsc4HPIlN4x7d84TLd0Remymp2nJIUTAKjGGRqXPs0NOL7Gn7XXP77J/L0/8ITDz9rjQ9hO51nk1jwwNAAu88LCst9pKo+RhpOfIXCduZTgo/X6dn7/sa93xYyNkNXp3Q=="
+            },
+            {
+              "name": "X-Google-DKIM-Signature",
+              "value": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20130820; h=x-gm-message-state:mime-version:date:message-id:subject:from:to:cc; bh=HIwZRdM+wVUVkmSfyDTWMkPLSv/vl1aqtiLshnrsPeo=; b=lJWRWX1dtZJIafYI6wytLQzV4VPmffz1xEDluCuAqKqrvvOlSWT1s9NBrxawKeaWrB mg90wzofOP4OgIGKZucSJIRD9RSc1N7Ae87eU6tOPiu2rrtA7mc1qHmiXHiVXQNsuYDO RUcGtvQbugOc/s8Mli9wSAN33xW1gZhMDAHrrFzafKtkv5oY286RWkwgIs92wmzfdu/H 4XrwgP0sgnQAXsltBFLeA04Vi9373xebjuqGN8oTx8TMfwQOId9klM4yL15ZpwJvRG1i stx5iVnSgAGnmeteSJXbuA63YFOj38BFa7lnp4JU2nqDIqmucIwl5kcqOKvconJFx/jg u+ag=="
+            },
+            {
+              "name": "X-Gm-Message-State",
+              "value": "AOPr4FVerkdlJkdUGAGt6/CapILRYuPDrqX8OjJXrdVZep11xjmD3KSDQuGJ8Rje7B5LDhCQ4XwFzBD9Nhgg6Q=="
+            },
+            {
+              "name": "MIME-Version",
+              "value": "1.0"
+            },
+            {
+              "name": "X-Received",
+              "value": "by 10.157.40.123 with SMTP id h56mr7167760otd.33.1463640296615; Wed, 18 May 2016 23:44:56 -0700 (PDT)"
+            },
+            {
+              "name": "Received",
+              "value": "by 10.202.72.137 with HTTP; Wed, 18 May 2016 23:44:56 -0700 (PDT)"
+            },
+            {
+              "name": "Date",
+              "value": "Thu, 19 May 2016 07:44:56 +0100"
+            },
+            {
+              "name": "Message-ID",
+              "value": "<CA+eUPda8kchjOwviDdZUmSf1iyRULg-6Tf+ouw8q8ieVHCvTsw@mail.gmail.com>"
+            },
+            {
+              "name": "Subject",
+              "value": ""
+            },
+            {
+              "name": "From",
+              "value": "Daniel Vaughan <dan@codetaming.org>"
+            },
+            {
+              "name": "To",
+              "value": "i.work.with@skillsmapper.site"
+            },
+            {
+              "name": "Cc",
+              "value": "test@codetaming.org, Daniel Vaughan <dvaughan@ebi.ac.uk>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "multipart/alternative; boundary=001a113e370ef58da305332c4fcc"
+            }
+          ],
+          "commonHeaders": {
+            "returnPath": "dan@codetaming.org",
+            "from": [
+              "Daniel Vaughan <dan@codetaming.org>"
+            ],
+            "date": "Thu, 19 May 2016 07:44:56 +0100",
+            "to": [
+              "i.work.with@skillsmapper.site"
+            ],
+            "cc": [
+              "test@codetaming.org",
+              "Daniel Vaughan <dvaughan@ebi.ac.uk>"
+            ],
+            "messageId": "<CA+eUPda8kchjOwviDdZUmSf1iyRULg-6Tf+ouw8q8ieVHCvTsw@mail.gmail.com>",
+            "subject": ""
+          }
+        },
+        "receipt": {
+          "timestamp": "2016-05-19T06:44:58.166Z",
+          "processingTimeMillis": 564,
+          "recipients": [
+            "i.work.with@skillsmapper.site"
+          ],
+          "spamVerdict": {
+            "status": "PASS"
+          },
+          "virusVerdict": {
+            "status": "PASS"
+          },
+          "spfVerdict": {
+            "status": "GRAY"
+          },
+          "dkimVerdict": {
+            "status": "GRAY"
+          },
+          "action": {
+            "type": "Lambda",
+            "functionArn": "arn:aws:lambda:eu-west-1:226475284860:function:receive-email-development",
+            "invocationType": "Event"
+          }
+        }
+      }
+    }
+  ]
+}
