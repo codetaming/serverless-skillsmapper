@@ -102,6 +102,26 @@ functions:
                 - "-"
                 - ${self:custom.events.message-received}
           topicName: ${self:custom.skillsmapper.name}-${self:custom.events.message-received}
+stepFunctions:
+  stateMachines:
+    testStateMachine:
+      events:
+        - http:
+            path: step
+            method: GET
+      definition:
+        Comment: "Test State Machine"
+        StartAt: FirstState
+        States:
+          FirstState:
+            Type: Pass
+            Result: first
+            Next: LastState
+          LastState:
+            Type: Pass
+            Result: last
+            End: true
+
 resources:
   Resources:
     NewEmail:

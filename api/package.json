@@ -20,6 +20,7 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "serverless": "^1.21.1",
     "serverless-domain-manager": "^1.1.15"
   }
 }
