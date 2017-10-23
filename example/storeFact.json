@@ -1,0 +1,22 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:eu-west-1:226475284860:tag-val:1d5ae064-31d9-409f-9895-958b09dd42ca",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "d4781875-3543-5df0-a239-57c5d46f138f",
+        "TopicArn": "arn:aws:sns:eu-west-1:226475284860:tag-val",
+        "Subject": null,
+        "Message": "{\"id\":\"bll5j8s43b6pvppsi65en54st04me3j6406pr8o1\",\"source\":\"test@codetaming.org\",\"type\":\"i.am.learning\",\"tags\":\"test3 java\"}",
+        "Timestamp": "2016-05-14T08:16:44.936Z",
+        "SignatureVersion": "1",
+        "Signature": "XGNSUG9pPGhQp/zHFTmsSJE09f2Jp3ny5RoZ/DmJTwrAAfNa6kLZdUXAImvaRNjgZv6fXSXivIV7Z4fII04jGHu+5lgHA+UZ+sRtPXB8s6Nd9P05h7sKxmsE+Dmtj8+Xo94MrWO8deYwBDcfgtKot5cYBWGo2Fc2bREWmLpAUa7f8ld35bNKWSE66tJ/22uTIa4tFsMFaaSx97q+xsu14HZ1ilk4xeAXz1dLScd59M6o9XF9JFtlgm5TmAzvJTI/IZzx6zpw52usYnmPMpbCZa3A4bW6J1dsWFQP+aU37WotIxIQMsXOYIibz5XAWPFpKUXuUn3BOQzihvO7/1Yacg==",
+        "SigningCertUrl": "https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-bb750dd426d95ee9390147a5624348ee.pem",
+        "UnsubscribeUrl": "https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-west-1:226475284860:tag-val:1d5ae064-31d9-409f-9895-958b09dd42ca",
+        "MessageAttributes": {}
+      }
+    }
+  ]
+}

@@ -12,7 +12,8 @@
     "aws-sdk": "latest",
     "aws-xray-sdk": "latest",
     "request": "latest",
-    "serverless": "latest"
+    "serverless": "latest",
+    "sha1": "^1.1.1"
   },
   "devDependencies": {
     "eslint-config-standard": "^10.2.1",

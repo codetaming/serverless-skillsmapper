@@ -64,6 +64,11 @@ module.exports.getSkill = (event, context, callback) => {
         skill.used = used
         const response = {
           statusCode: 200,
+          headers: {
+            'Access-Control-Allow-Credentials': true,
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(skill)
         }
         callback(null, response)

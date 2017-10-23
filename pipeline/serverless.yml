@@ -86,6 +86,22 @@ functions:
                 - "-"
                 - ${self:custom.events.message-received}
           topicName: ${self:custom.skillsmapper.name}-${self:custom.events.message-received}
+  storeFact:
+    handler: storeFact.storeFact
+    events:
+      - sns:
+          arn:
+            Fn::Join:
+              - ""
+              - - "arn:aws:sns:"
+                - Ref: "AWS::Region"
+                - ":"
+                - Ref: "AWS::AccountId"
+                - ":"
+                - ${self:custom.skillsmapper.name}
+                - "-"
+                - ${self:custom.events.message-received}
+          topicName: ${self:custom.skillsmapper.name}-${self:custom.events.message-received}
 resources:
   Resources:
     NewEmail:

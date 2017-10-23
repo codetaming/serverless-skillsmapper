@@ -35,6 +35,11 @@ module.exports.getSkillDescription = (event, context, callback) => {
           } else {
             const response = {
               statusCode: 200,
+              headers: {
+                'Access-Control-Allow-Credentials': true,
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+              },
               body: JSON.stringify(profile)
             }
             callback(null, response)
