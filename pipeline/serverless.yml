@@ -46,38 +46,10 @@ provider:
 
 
 functions:
-  startStateMachines:
-    handler: startStateMachine.start
+  processEmail:
+    handler: processEmail.processEmail
     environment:
       STATEMACHINE_ARN: ${self:resources.Outputs.EmailStateMachine.Value}
-    events:
-      - sns:
-          arn:
-            Fn::Join:
-              - ""
-              - - "arn:aws:sns:"
-                - Ref: "AWS::Region"
-                - ":"
-                - Ref: "AWS::AccountId"
-                - ":"
-                - ${self:custom.skillsmapper.name}
-                - "-"
-                - ${self:custom.events.new-email}
-          topicName: ${self:custom.skillsmapper.name}-${self:custom.events.new-email}
-  receiveEmail:
-    handler: receiveEmail.receiveEmail
-    environment:
-      SNS_MESSAGE_RECEIVED:
-        Fn::Join:
-          - ""
-          - - "arn:aws:sns:"
-            - Ref: "AWS::Region"
-            - ":"
-            - Ref: "AWS::AccountId"
-            - ":"
-            - ${self:custom.skillsmapper.name}
-            - "-"
-            - ${self:custom.events.message-received}
     events:
       - sns:
           arn:
@@ -96,57 +68,35 @@ functions:
     handler: storeMessage.storeMessage
     environment:
       MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
-    events:
-      - sns:
-          arn:
-            Fn::Join:
-              - ""
-              - - "arn:aws:sns:"
-                - Ref: "AWS::Region"
-                - ":"
-                - Ref: "AWS::AccountId"
-                - ":"
-                - ${self:custom.skillsmapper.name}
-                - "-"
-                - ${self:custom.events.message-received}
-          topicName: ${self:custom.skillsmapper.name}-${self:custom.events.message-received}
   storeFact:
     handler: storeFact.storeFact
-    events:
-      - sns:
-          arn:
-            Fn::Join:
-              - ""
-              - - "arn:aws:sns:"
-                - Ref: "AWS::Region"
-                - ":"
-                - Ref: "AWS::AccountId"
-                - ":"
-                - ${self:custom.skillsmapper.name}
-                - "-"
-                - ${self:custom.events.message-received}
-          topicName: ${self:custom.skillsmapper.name}-${self:custom.events.message-received}
 stepFunctions:
   stateMachines:
-    testStateMachine:
+    EmailStateMachine:
       name: EmailStateMachine
-      events:
-        - http:
-            path: step
-            method: GET
       definition:
-        Comment: "Test State Machine"
-        StartAt: FirstState
+        StartAt: Store
         States:
-          FirstState:
-            Type: Pass
-            Result: first
-            Next: LastState
-          LastState:
+          Finish:
             Type: Pass
             Result: last
             End: true
-
+          Store:
+            Type: Parallel
+            Next: Finish
+            Branches:
+              - StartAt: StoreMessage
+                States:
+                  StoreMessage:
+                    Type: Task
+                    Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeMessage"
+                    End: true
+              - StartAt: StoreFact
+                States:
+                  StoreFact:
+                    Type: Task
+                    Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeFact"
+                    End: true
 resources:
   Resources:
     NewEmail:

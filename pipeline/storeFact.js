@@ -5,8 +5,7 @@ var sha1 = require('sha1')
 module.exports.storeFact = (event, context, callback) => {
   console.log(JSON.stringify(event))
   const httpUrlForTransaction = process.env.NEO4J_URL
-  var messageText = event.Records[0].Sns.Message
-  var message = JSON.parse(messageText)
+  var message = event
   var statements = []
   var commasReplacedTags = message.tags.replace(/,/g, ' ')
   var subjectElements = commasReplacedTags.split(' ')

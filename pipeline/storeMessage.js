@@ -2,10 +2,8 @@ const AWS = require('aws-sdk')
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'})
 
 module.exports.storeMessage = (event, context, callback) => {
-  const messageText = event.Records[0].Sns.Message
-  const message = JSON.parse(messageText)
+  const message = event
   const datetime = new Date().getTime().toString()
-  console.log(datetime)
   dynamodb.putItem({
     'TableName': process.env.MESSAGES_RECEIVED_TABLE,
     'Item': {
@@ -20,6 +18,7 @@ module.exports.storeMessage = (event, context, callback) => {
       console.log(err)
     } else {
       console.log('put successful')
+      return JSON.stringify(event)
     }
   })
 }
