@@ -90,12 +90,18 @@ stepFunctions:
                   StoreMessage:
                     Type: Task
                     Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeMessage"
+                    InputPath: "$.message"
+                    ResultPath: "$.result"
+                    OutputPath: "$"
                     End: true
               - StartAt: StoreFact
                 States:
                   StoreFact:
                     Type: Task
                     Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeFact"
+                    InputPath: "$.message"
+                    ResultPath: "$.result"
+                    OutputPath: "$"
                     End: true
 resources:
   Resources:

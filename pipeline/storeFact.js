@@ -1,11 +1,10 @@
 var request = require('request')
-var aws = require('aws-sdk')
 var sha1 = require('sha1')
 
 module.exports.storeFact = (event, context, callback) => {
-  console.log(JSON.stringify(event))
   const httpUrlForTransaction = process.env.NEO4J_URL
   var message = event
+  console.log(JSON.stringify(message))
   var statements = []
   var commasReplacedTags = message.tags.replace(/,/g, ' ')
   var subjectElements = commasReplacedTags.split(' ')
@@ -122,7 +121,7 @@ module.exports.storeFact = (event, context, callback) => {
           ' CREATE UNIQUE (person)-[:IS_ALSO]->(twitter)'
         statements.push({
           'statement': createTwitterLinkQuery,
-          'parameters': { email: message.source, handle: twitterHandles[0]}
+          'parameters': {email: message.source, handle: twitterHandles[0]}
         })
       }
       break
@@ -216,40 +215,22 @@ module.exports.storeFact = (event, context, callback) => {
           for (var j = 0; j < resp.body.results.length; j++) {
             var result = (resp.body.results[j])
             if (result.data.length > 0) {
-              for (var k = 0; k < result.data.length; k++) {
-                var data = result.data[k]
-                if (!data.row[1]) {
-                  var sns = new aws.SNS()
-                  var payload = {
-                    tag: data.row[0]
-                  }
-                  var payloadStr = JSON.stringify(payload)
-                  sns.publish({
-                    Message: payloadStr,
-                    TargetArn: 'arn:aws:sns:eu-west-1:226475284860:tag-create'
-                  }, function (err, data) {
-                    if (err) {
-                      console.error('Error publishing to SNS tag-create')
-                    } else {
-                      console.info('Message published to SNS tag-create')
-                    }
-                  })
-                }
-              }
+              console.log(result)
+              callback(null, result)
             }
           }
         }
       }
     }
   )
-}
 
-function formatTwitterHandles (rawTwitterHandles) {
-  var twitterHandles = []
-  for (var i = 0; i < rawTwitterHandles.length; i++) {
-    var rawTwitterHandle = rawTwitterHandles[i]
-    var twitterHandle = rawTwitterHandle.replace('@', '').toLowerCase()
-    twitterHandles.push(twitterHandle)
+  function formatTwitterHandles (rawTwitterHandles) {
+    var twitterHandles = []
+    for (var i = 0; i < rawTwitterHandles.length; i++) {
+      var rawTwitterHandle = rawTwitterHandles[i]
+      var twitterHandle = rawTwitterHandle.replace('@', '').toLowerCase()
+      twitterHandles.push(twitterHandle)
+    }
+    return twitterHandles
   }
-  return twitterHandles
 }

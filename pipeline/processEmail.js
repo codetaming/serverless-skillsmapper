@@ -52,7 +52,7 @@ function startStateMachine (payload) {
   const stateMachineArn = process.env.STATEMACHINE_ARN
   const params = {
     stateMachineArn,
-    'input': JSON.stringify(payload)
+    'input': JSON.stringify({message: payload})
   }
   console.log(JSON.stringify(params))
   stepfunctions.startExecution(params, function (err, data) {
