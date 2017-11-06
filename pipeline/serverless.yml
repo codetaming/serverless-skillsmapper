@@ -101,7 +101,22 @@ stepFunctions:
                     Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeFact"
                     InputPath: "$.message"
                     ResultPath: "$.result"
-                    OutputPath: "$"
+                    OutputPath: "$.result"
+                    Next: UnknownTagCheck
+                  UnknownTagCheck:
+                    Type: Choice
+                    Choices:
+                    - Variable: "$.unknownTagCount"
+                      NumericGreaterThan: 0
+                      Next: StoreTags
+                    Default: FinishedFact
+                  StoreTags:
+                    Type: Pass
+                    Result: "Stored tags"
+                    Next: FinishedFact
+                  FinishedFact:
+                    Type: Pass
+                    Result: "Finished fact"
                     End: true
 resources:
   Resources:

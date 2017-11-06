@@ -3,11 +3,10 @@ var sha1 = require('sha1')
 
 module.exports.storeFact = (event, context, callback) => {
   const httpUrlForTransaction = process.env.NEO4J_URL
-  var message = event
-  console.log(JSON.stringify(message))
-  var statements = []
-  var commasReplacedTags = message.tags.replace(/,/g, ' ')
-  var subjectElements = commasReplacedTags.split(' ')
+  const message = event
+  const statements = []
+  const commasReplacedTags = message.tags.replace(/,/g, ' ')
+  const subjectElements = commasReplacedTags.split(' ')
 
   function isEmail (value) {
     return value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
@@ -25,12 +24,12 @@ module.exports.storeFact = (event, context, callback) => {
     return value.match('^(?!mailto:)(?:(?:http|https|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$')
   }
 
-  var emails = subjectElements.filter(isEmail)
-  var tags = subjectElements.filter(isTag)
-  var rawTwitterHandles = subjectElements.filter(isTwitterHandle)
-  var twitterHandles = formatTwitterHandles(rawTwitterHandles)
-  var urls = subjectElements.filter(isUrl)
-  var allPeople = []
+  const emails = subjectElements.filter(isEmail)
+  const tags = subjectElements.filter(isTag)
+  const rawTwitterHandles = subjectElements.filter(isTwitterHandle)
+  const twitterHandles = formatTwitterHandles(rawTwitterHandles)
+  const urls = subjectElements.filter(isUrl)
+  const allPeople = []
   allPeople.push(emails)
   allPeople.push(message.source)
   for (var i = 0; i < allPeople.length; i++) {
@@ -48,8 +47,8 @@ module.exports.storeFact = (event, context, callback) => {
   console.log('emails: ' + JSON.stringify(emails))
   console.log('twitterHandles: ' + JSON.stringify(twitterHandles))
   console.log('urls: ' + JSON.stringify(urls))
-  for (var i = 0; i < tags.length; i++) {
-    var createTagQuery = 'MERGE (tag:Tag { name: {name} }) ' +
+  for (let i = 0; i < tags.length; i++) {
+    let createTagQuery = 'MERGE (tag:Tag { name: {name} }) ' +
       'ON CREATE SET tag.firstMentioned = timestamp() ' +
       'ON MATCH SET tag.lastMentioned = timestamp() ' +
       'return tag.name, exists(tag.lastSeen)'
@@ -58,8 +57,8 @@ module.exports.storeFact = (event, context, callback) => {
       'parameters': {name: tags[i]}
     })
   }
-  for (var i = 0; i < urls.length; i++) {
-    var createUrlQuery = 'MERGE (website:Website { url: {url} }) ' +
+  for (let i = 0; i < urls.length; i++) {
+    let createUrlQuery = 'MERGE (website:Website { url: {url} }) ' +
       'ON CREATE SET website.firstMentioned = timestamp() ' +
       'ON MATCH SET website.lastMentioned = timestamp()'
     statements.push({
@@ -67,8 +66,8 @@ module.exports.storeFact = (event, context, callback) => {
       'parameters': {url: urls[i]}
     })
   }
-  for (var i = 0; i < twitterHandles.length; i++) {
-    var createTwitterHandleQuery = 'MERGE (twitter:Twitter { handle: {handle} }) ' +
+  for (let i = 0; i < twitterHandles.length; i++) {
+    let createTwitterHandleQuery = 'MERGE (twitter:Twitter { handle: {handle} }) ' +
       'ON CREATE SET twitter.firstMentioned = timestamp() ' +
       'ON MATCH SET twitter.lastMentioned = timestamp()'
     statements.push({
@@ -77,7 +76,7 @@ module.exports.storeFact = (event, context, callback) => {
     })
   }
 
-  var type = message.type
+  let type = message.type
   type = type.toUpperCase()
   type = type.replace(/\./g, '_')
   console.log('type:' + type)
@@ -86,14 +85,14 @@ module.exports.storeFact = (event, context, callback) => {
     case 'I_AM_LEARNING':
     case 'I_AM_USING':
     case 'I_HAVE_USED':
-      for (var i = 0; i < tags.length; i++) {
-        var endRelationshipQuery = 'MATCH (:Person { email: {email} })-[r]-(:Tag { name: {name} })' +
+      for (let i = 0; i < tags.length; i++) {
+        const endRelationshipQuery = 'MATCH (:Person { email: {email} })-[r]-(:Tag { name: {name} })' +
           ' SET r.ended = timestamp() '
         statements.push({
           'statement': endRelationshipQuery,
           'parameters': {name: tags[i], email: message.source}
         })
-        var createRelationshipQuery = 'MATCH (person:Person { email: {email} })' +
+        const createRelationshipQuery = 'MATCH (person:Person { email: {email} })' +
           ' MATCH (tag:Tag { name: {name} })' +
           ' CREATE UNIQUE (person)-[:' + type + ' { started: timestamp() } ]-(tag)'
         statements.push({
@@ -104,8 +103,8 @@ module.exports.storeFact = (event, context, callback) => {
       break
     case 'I_WORK_WITH':
     case 'I_REPORT_TO':
-      for (var i = 0; i < message.people.length; i++) {
-        var createRelationshipQuery = 'MATCH (person:Person { email: {email} })' +
+      for (let i = 0; i < message.people.length; i++) {
+        const createRelationshipQuery = 'MATCH (person:Person { email: {email} })' +
           ' MATCH (otherPerson:Person { email: {otherPerson} })' +
           ' CREATE UNIQUE (person)-[:' + type + ' { started: timestamp() } ]->(otherPerson)'
         statements.push({
@@ -115,8 +114,8 @@ module.exports.storeFact = (event, context, callback) => {
       }
       break
     case 'I_AM_ALSO':
-      if (twitterHandles.length == 1 && message.source.length > 1) {
-        var createTwitterLinkQuery = 'MATCH (person:Person { email: {email} })' +
+      if (twitterHandles.length === 1 && message.source.length > 1) {
+        const createTwitterLinkQuery = 'MATCH (person:Person { email: {email} })' +
           ' MATCH (twitter:Twitter { handle: {handle} })' +
           ' CREATE UNIQUE (person)-[:IS_ALSO]->(twitter)'
         statements.push({
@@ -126,9 +125,9 @@ module.exports.storeFact = (event, context, callback) => {
       }
       break
     case 'I_LEARNED_FROM':
-      for (var i = 0; i < emails.length; i++) {
-        for (var j = 0; j < tags.length; j++) {
-          var createLearningQueryEmail = 'MATCH (person:Person { email: {email} })' +
+      for (let i = 0; i < emails.length; i++) {
+        for (let j = 0; j < tags.length; j++) {
+          const createLearningQueryEmail = 'MATCH (person:Person { email: {email} })' +
             ' MATCH (otherPerson:Person { email: {otherPerson} })' +
             ' MATCH (tag:Tag { name: {name} })' +
             ' CREATE (person)<-[:LEARNED_BY]-(learning:Learning)-[:LEARNED_ABOUT]->(tag)' +
@@ -140,9 +139,9 @@ module.exports.storeFact = (event, context, callback) => {
           })
         }
       }
-      for (var i = 0; i < twitterHandles.length; i++) {
-        for (var j = 0; j < tags.length; j++) {
-          var createLearningQueryTwitter = 'MATCH (person:Person { email: {email} })' +
+      for (let i = 0; i < twitterHandles.length; i++) {
+        for (let j = 0; j < tags.length; j++) {
+          const createLearningQueryTwitter = 'MATCH (person:Person { email: {email} })' +
             ' MATCH (twitter:Twitter { handle: {handle} })' +
             ' MATCH (tag:Tag { name: {name} })' +
             ' CREATE (person)<-[:LEARNED_BY]-(learning:Learning)-[:LEARNED_ABOUT]->(tag)' +
@@ -154,9 +153,9 @@ module.exports.storeFact = (event, context, callback) => {
           })
         }
       }
-      for (var i = 0; i < urls.length; i++) {
-        for (var j = 0; j < tags.length; j++) {
-          var createLearningQueryWebsite = 'MATCH (person:Person { email: {email} })' +
+      for (let i = 0; i < urls.length; i++) {
+        for (let j = 0; j < tags.length; j++) {
+          const createLearningQueryWebsite = 'MATCH (person:Person { email: {email} })' +
             ' MATCH (website:Website { url: {url} })' +
             ' MATCH (tag:Tag { name: {name} })' +
             ' CREATE (person)<-[:LEARNED_BY]-(learning:Learning)-[:LEARNED_ABOUT]->(tag)' +
@@ -170,8 +169,8 @@ module.exports.storeFact = (event, context, callback) => {
       }
       break
     case 'I_WORKED_ON':
-      var projectName = 'test-project'
-      var createProjectQuery = 'MATCH (person:Person { email: {email} })' +
+      const projectName = 'test-project'
+      const createProjectQuery = 'MATCH (person:Person { email: {email} })' +
         ' MERGE (project:Project { name: {name} })' +
         ' CREATE UNIQUE (person)-[:I_WORKED_ON]->(project)'
       statements.push({
@@ -179,8 +178,8 @@ module.exports.storeFact = (event, context, callback) => {
         'parameters': {email: message.source, name: projectName}
       })
 
-      for (var j = 0; j < tags.length; j++) {
-        var createProjectQuery = 'MATCH (project:Project { name: {projectName} })' +
+      for (let j = 0; j < tags.length; j++) {
+        const createProjectQuery = 'MATCH (project:Project { name: {projectName} })' +
           ' MATCH (tag:Tag { name: {name} })' +
           ' CREATE UNIQUE (project)-[:USED]->(tag)'
         statements.push({
@@ -190,8 +189,8 @@ module.exports.storeFact = (event, context, callback) => {
       }
       break
     case 'FORGET':
-      for (var i = 0; i < tags.length; i++) {
-        var endRelationshipQuery = 'MATCH (:Person { email: {email} })-[r]-(:Tag { name: {name} }) delete r '
+      for (let i = 0; i < tags.length; i++) {
+        const endRelationshipQuery = 'MATCH (:Person { email: {email} })-[r]-(:Tag { name: {name} }) delete r '
         statements.push({
           'statement': endRelationshipQuery,
           'parameters': {name: tags[i], email: message.source}
@@ -208,17 +207,30 @@ module.exports.storeFact = (event, context, callback) => {
     function (err, resp) {
       if (err) {
         console.log(err)
+        callback(err, null)
       } else {
         if (resp.body.errors.length > 0) {
           console.log(JSON.stringify(resp.body.errors))
+          callback(resp.body.errors, null)
         } else {
-          for (var j = 0; j < resp.body.results.length; j++) {
-            var result = (resp.body.results[j])
+          const unknownTags = []
+          for (let j = 0; j < resp.body.results.length; j++) {
+            const result = (resp.body.results[j])
             if (result.data.length > 0) {
-              console.log(result)
-              callback(null, result)
+              for (let k = 0; k < result.data.length; k++) {
+                const data = result.data[k]
+                if (!data.row[1]) {
+                  unknownTags.push(data.row[0])
+                }
+              }
             }
           }
+          let output = {}
+          output.unknownTagCount = unknownTags.length
+          if (unknownTags.length > 0) {
+            output.unknownTags = unknownTags
+          }
+          callback(null, output)
         }
       }
     }
@@ -226,9 +238,9 @@ module.exports.storeFact = (event, context, callback) => {
 
   function formatTwitterHandles (rawTwitterHandles) {
     var twitterHandles = []
-    for (var i = 0; i < rawTwitterHandles.length; i++) {
-      var rawTwitterHandle = rawTwitterHandles[i]
-      var twitterHandle = rawTwitterHandle.replace('@', '').toLowerCase()
+    for (let i = 0; i < rawTwitterHandles.length; i++) {
+      const rawTwitterHandle = rawTwitterHandles[i]
+      const twitterHandle = rawTwitterHandle.replace('@', '').toLowerCase()
       twitterHandles.push(twitterHandle)
     }
     return twitterHandles
