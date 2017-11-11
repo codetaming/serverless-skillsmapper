@@ -86,6 +86,8 @@ functions:
     handler: checkPhoto.checkPhoto
   retrieveEbiPhoto:
     handler: retrieveEbiPhoto.retrieveEbiPhoto
+  storePhotoUrl:
+    handler: storePhotoUrl.storePhotoUrl
 stepFunctions:
   stateMachines:
     EmailStateMachine:
@@ -165,6 +167,18 @@ stepFunctions:
                           RetrieveEbiPhoto:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveEbiPhoto"
+                            Next: PhotoToStoreCheck
+                          PhotoToStoreCheck:
+                            Type: Choice
+                            Choices:
+                            - Variable: "$.photoRetrieved"
+                              BooleanEquals: true
+                              Next: StorePhotoUrl
+                            Default:
+                              FinishedPhoto
+                          StorePhotoUrl:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storePhotoUrl"
                             Next: FinishedPhoto
                           FinishedPhoto:
                             Type: Pass

@@ -3,6 +3,7 @@ const request = require('request')
 module.exports.retrieveEbiPhoto = (event, context, callback) => {
   const baseUrl = 'https://www.ebi.ac.uk/about/people/'
   const output = {}
+  output.email = event.email
   output.photoRetrieved = false
   if (event.name) {
     const nameStr = event.name.replace(/\s+/g, '-').toLowerCase()
