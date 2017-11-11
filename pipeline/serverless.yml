@@ -125,7 +125,7 @@ stepFunctions:
                             - Variable: "$.unknownTagCount"
                               NumericGreaterThan: 0
                               Next: ValidateTags
-                            Default: FinishedFact
+                            Default: FinishedTags
                           ValidateTags:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-validateTags"
@@ -137,8 +137,8 @@ stepFunctions:
                           RetrieveTagDescription:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
-                            Next: FinishedFact
-                          FinishedFact:
+                            Next: FinishedTags
+                          FinishedTags:
                             Type: Pass
                             End: true
                       - StartAt: SendConfirmation
