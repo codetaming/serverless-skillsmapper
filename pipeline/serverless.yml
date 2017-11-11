@@ -131,7 +131,10 @@ stepFunctions:
                           RetrieveTagDescription:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
-                            End: true
+                            Next: FinishedFact
+                          FinishedFact:
+                            Type: Pass
+                            Result: "Finished"
                       - StartAt: SendConfirmation
                         States:
                           SendConfirmation:
