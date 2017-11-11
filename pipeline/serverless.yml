@@ -160,7 +160,7 @@ stepFunctions:
                             Choices:
                             - Variable: "$.hasPhoto"
                               BooleanEquals: false
-                              Next: GetPhoto
+                              Next: RetrieveEbiPhoto
                             Default: FinishedPhoto
                           RetrieveEbiPhoto:
                             Type: Task
