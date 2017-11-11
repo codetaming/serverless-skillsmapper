@@ -85,13 +85,9 @@ stepFunctions:
       definition:
         StartAt: Store
         States:
-          Finish:
-            Type: Pass
-            Result: last
-            End: true
           Store:
             Type: Parallel
-            Next: Finish
+            End: true
             Branches:
               - StartAt: StoreMessage
                 States:
@@ -113,7 +109,7 @@ stepFunctions:
                     Next: UnknownTagCheck
                   Process:
                     Type: Parallel
-                    Next: Finish
+                    End: true
                     Branches:
                     - StartAt: UnknownCheck
                       States:
@@ -139,10 +135,9 @@ stepFunctions:
                     - StartAt: SendConfirmation
                       States:
                         SendConfirmation:
-                          RetrieveTagDescription:
-                            Type: Task
-                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-sendConfirmation"
-                            End: true
+                          Type: Task
+                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-sendConfirmation"
+                          End: true
 resources:
   Resources:
     NewEmail:
