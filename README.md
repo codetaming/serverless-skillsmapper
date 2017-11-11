@@ -46,3 +46,10 @@ Using Serverless 1.21.1 as 1.22.0+ has a [breaking bug](https://github.com/serve
 npm install -g serverless@1.22.0
 ```
 Now using Serverless 1.24.1 which appears to have resolved the issue
+
+## Testing
+
+https://medium.com/vandium-software/unit-testing-aws-lambda-functions-in-node-js-7ad6c8f5000
+
+## EC@ Deployment
+I was getting fed up with deploying Serverless over a slow connection so created an EC2 instance to deploy from. See [aws-scripts](aws-scripts). This is better done using Travis-CI.
