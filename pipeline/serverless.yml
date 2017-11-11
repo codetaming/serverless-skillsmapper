@@ -162,7 +162,7 @@ stepFunctions:
                             Default: FinishedPhoto
                           GetPhoto:
                             Type: Pass
-                            Next: FinishPhoto
+                            Next: FinishedPhoto
                           FinishedPhoto:
                             Type: Pass
                             End: true
