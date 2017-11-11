@@ -70,12 +70,18 @@ functions:
       MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
   storeFact:
     handler: storeFact.storeFact
+  sendConfirmation:
+      handler: sendConfirmation.sendConfirmation
+      environment:
+        NEO4J_URL: ${self:custom.private.neo4j-url}
   validateTags:
     handler: validateTags.validateTags
   storeTagValidity:
     handler: storeTagValidity.storeTagValidity
   retrieveTagDescription:
     handler: retrieveTagDescription.retrieveTagDescription
+  sendConfirmation:
+    handler: sendConfirmation.sendConfirmation
 stepFunctions:
   stateMachines:
     EmailStateMachine:
@@ -109,29 +115,38 @@ stepFunctions:
                     ResultPath: "$.result"
                     OutputPath: "$.result"
                     Next: UnknownTagCheck
-                  UnknownTagCheck:
-                    Type: Choice
-                    Choices:
-                    - Variable: "$.unknownTagCount"
-                      NumericGreaterThan: 0
-                      Next: ValidateTags
-                    Default: FinishedFact
-                  ValidateTags:
-                    Type: Task
-                    Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-validateTags"
-                    Next: StoreTagValidity
-                  StoreTagValidity:
-                    Type: Task
-                    Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeTagValidity"
-                    Next: RetrieveTagDescription
-                  RetrieveTagDescription:
-                    Type: Task
-                    Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
-                    Next: FinishedFact
-                  FinishedFact:
-                    Type: Pass
-                    Result: "Finished fact"
-                    End: true
+                  Process:
+                    Type: Parallel
+                    Next: Finish
+                    Branches:
+                    - StartAt: UnknownCheck
+                      States:
+                        UnknownTagCheck:
+                          Type: Choice
+                          Choices:
+                          - Variable: "$.unknownTagCount"
+                            NumericGreaterThan: 0
+                            Next: ValidateTags
+                          Default: FinishedFact
+                        ValidateTags:
+                          Type: Task
+                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-validateTags"
+                          Next: StoreTagValidity
+                        StoreTagValidity:
+                          Type: Task
+                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeTagValidity"
+                          Next: RetrieveTagDescription
+                        RetrieveTagDescription:
+                          Type: Task
+                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
+                          End: true
+                    - StartAt: SendConfirmation
+                      States:
+                        SendConfirmation:
+                          RetrieveTagDescription:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-sendConfirmation"
+                            End: true
 resources:
   Resources:
     NewEmail:

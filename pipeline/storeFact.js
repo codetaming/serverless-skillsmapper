@@ -226,6 +226,7 @@ module.exports.storeFact = (event, context, callback) => {
             }
           }
           let output = {}
+          output.confirmationAddress = message.source
           output.unknownTagCount = unknownTags.length
           if (unknownTags.length > 0) {
             output.unknownTags = unknownTags
