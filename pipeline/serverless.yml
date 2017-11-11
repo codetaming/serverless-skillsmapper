@@ -21,7 +21,7 @@ provider:
     - Effect: Allow
       Action:
        - "ses:*"
-      Resource": "*"
+      Resource: "*"
     - Effect: Allow
       Action:
        - "sns:Publish"
