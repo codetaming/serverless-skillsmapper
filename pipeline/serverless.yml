@@ -70,10 +70,6 @@ functions:
       MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
   storeFact:
     handler: storeFact.storeFact
-  sendConfirmation:
-      handler: sendConfirmation.sendConfirmation
-      environment:
-        NEO4J_URL: ${self:custom.private.neo4j-url}
   validateTags:
     handler: validateTags.validateTags
   storeTagValidity:
