@@ -84,6 +84,8 @@ functions:
     handler: sendConfirmation.sendConfirmation
   checkPhoto:
     handler: checkPhoto.checkPhoto
+  retrieveEbiPhoto:
+    handler: retrieveEbiPhoto.retrieveEbiPhoto
 stepFunctions:
   stateMachines:
     EmailStateMachine:
@@ -160,8 +162,9 @@ stepFunctions:
                               BooleanEquals: false
                               Next: GetPhoto
                             Default: FinishedPhoto
-                          GetPhoto:
-                            Type: Pass
+                          RetrieveEbiPhoto:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveEbiPhoto"
                             Next: FinishedPhoto
                           FinishedPhoto:
                             Type: Pass
