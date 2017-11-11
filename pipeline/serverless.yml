@@ -18,11 +18,11 @@ provider:
   environment:
     NEO4J_URL: ${self:custom.private.neo4j-url}
   iamRoleStatements:
-    - Effect: "Allow",
+    - Effect: Allow
       Action:
        - "ses:*"
       Resource": "*"
-    - Effect: "Allow"
+    - Effect: Allow
       Action:
        - "sns:Publish"
       Resource:
