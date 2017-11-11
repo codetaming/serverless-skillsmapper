@@ -74,6 +74,8 @@ functions:
     handler: validateTags.validateTags
   storeTagValidity:
     handler: storeTagValidity.storeTagValidity
+  retrieveTagDescription:
+    handler: retrieveTagDescription.retrieveTagDescription
 stepFunctions:
   stateMachines:
     EmailStateMachine:
@@ -121,6 +123,10 @@ stepFunctions:
                   StoreTagValidity:
                     Type: Task
                     Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeTagValidity"
+                    Next: RetrieveTagDescription
+                  RetrieveTagDescription:
+                    Type: Task
+                    Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
                     Next: FinishedFact
                   FinishedFact:
                     Type: Pass
