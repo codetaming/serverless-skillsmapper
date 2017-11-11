@@ -5,12 +5,12 @@ module.exports.sendConfirmation = (event, context, callback) => {
   const message = event
   const eParams = {
     Destination: {
-      ToAddresses: [message.confirmationAddress]
+      ToAddresses: [message.email]
     },
     Message: {
       Body: {
         Text: {
-          Data: 'Thank you for your Skills Mapper update.\n\nTo see you current profile please go to: http://profile.skillsmapper.org/?email=' + message.confirmationAddress + '\n\n' +
+          Data: 'Thank you for your Skills Mapper update.\n\nTo see you current profile please go to: http://profile.skillsmapper.org/?email=' + message.email + '\n\n' +
           'You can add to your profile by emailing tags in the subject line to:\n\n' +
           'i.am.interested.in@skillsmapper.org\n\n' +
           'i.am.using@skillsmapper.org\n\n' +
@@ -30,7 +30,7 @@ module.exports.sendConfirmation = (event, context, callback) => {
     if (err) {
       callback(err, null)
     } else {
-      const output = {'emailSendTo': message.confirmationAddress}
+      const output = {'emailSentTo': message.email}
       callback(null, output)
     }
   })

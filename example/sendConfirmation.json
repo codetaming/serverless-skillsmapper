@@ -1,5 +1,5 @@
 {
-  "confirmationAddress": "dan@codetaming.org",
+  "email": "dan@codetaming.org",
   "unknownTagCount": 1,
   "unknownTags": [
     "firebase"

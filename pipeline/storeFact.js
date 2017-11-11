@@ -42,11 +42,6 @@ module.exports.storeFact = (event, context, callback) => {
       'parameters': {email: allPeople[i], hash: sha1(allPeople[i])}
     })
   }
-  console.log('source: ' + message.source)
-  console.log('tags: ' + JSON.stringify(tags))
-  console.log('emails: ' + JSON.stringify(emails))
-  console.log('twitterHandles: ' + JSON.stringify(twitterHandles))
-  console.log('urls: ' + JSON.stringify(urls))
   for (let i = 0; i < tags.length; i++) {
     let createTagQuery = 'MERGE (tag:Tag { name: {name} }) ' +
       'ON CREATE SET tag.firstMentioned = timestamp() ' +
@@ -226,7 +221,7 @@ module.exports.storeFact = (event, context, callback) => {
             }
           }
           let output = {}
-          output.confirmationAddress = message.source
+          output.email = message.source
           output.unknownTagCount = unknownTags.length
           if (unknownTags.length > 0) {
             output.unknownTags = unknownTags

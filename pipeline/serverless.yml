@@ -82,6 +82,8 @@ functions:
     handler: retrieveTagDescription.retrieveTagDescription
   sendConfirmation:
     handler: sendConfirmation.sendConfirmation
+  checkPhoto:
+    handler: checkPhoto.checkPhoto
 stepFunctions:
   stateMachines:
     EmailStateMachine:
@@ -138,13 +140,18 @@ stepFunctions:
                             Next: FinishedFact
                           FinishedFact:
                             Type: Pass
-                            Result: "Finished"
                             End: true
                       - StartAt: SendConfirmation
                         States:
                           SendConfirmation:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-sendConfirmation"
+                            End: true
+                      - StartAt: CheckPhoto
+                        States:
+                          CheckPhoto:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-checkPhoto"
                             End: true
 resources:
   Resources:
