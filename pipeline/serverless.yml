@@ -152,6 +152,19 @@ stepFunctions:
                           CheckPhoto:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-checkPhoto"
+                            Next: MissingPhotoCheck
+                          MissingPhotoCheck:
+                            Type: Choice
+                            Choices:
+                            - Variable: "$.hasPhoto"
+                              BooleanEquals: false
+                              Next: GetPhoto
+                            Default: FinishedPhoto
+                          GetPhoto:
+                            Type: Pass
+                            Next: FinishPhoto
+                          FinishedPhoto:
+                            Type: Pass
                             End: true
 resources:
   Resources:
