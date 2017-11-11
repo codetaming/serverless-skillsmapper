@@ -1,3 +1,9 @@
+# Serverless Skills Mapper
+
+This is an implementation of the Skills Mapper application using the [Serverless Framework](https://serverless.com/).
+
+It is meant as a test ground for trying out functionality.
+
 ## Deploy
 
 Deploy a Service
@@ -39,3 +45,4 @@ Using Serverless 1.21.1 as 1.22.0+ has a [breaking bug](https://github.com/serve
 ```
 npm install -g serverless@1.22.0
 ```
+Now using Serverless 1.24.1 which appears to have resolved the issue

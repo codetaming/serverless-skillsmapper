@@ -70,6 +70,8 @@ functions:
       MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
   storeFact:
     handler: storeFact.storeFact
+  validateTags:
+    handler: validateTags.validateTags
 stepFunctions:
   stateMachines:
     EmailStateMachine:
@@ -108,11 +110,11 @@ stepFunctions:
                     Choices:
                     - Variable: "$.unknownTagCount"
                       NumericGreaterThan: 0
-                      Next: StoreTags
+                      Next: ValidateTags
                     Default: FinishedFact
-                  StoreTags:
-                    Type: Pass
-                    Result: "Stored tags"
+                  ValidateTags:
+                    Type: Task
+                    Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-validateTags"
                     Next: FinishedFact
                   FinishedFact:
                     Type: Pass

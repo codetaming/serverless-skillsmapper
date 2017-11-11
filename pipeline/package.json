@@ -13,7 +13,8 @@
     "aws-xray-sdk": "latest",
     "request": "latest",
     "serverless": "latest",
-    "sha1": "^1.1.1"
+    "sha1": "^1.1.1",
+    "stackexchange": "^0.3.0"
   },
   "devDependencies": {
     "eslint-config-standard": "^10.2.1",
