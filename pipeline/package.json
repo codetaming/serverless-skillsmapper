@@ -11,6 +11,8 @@
   "dependencies": {
     "aws-sdk": "latest",
     "aws-xray-sdk": "latest",
+    "google": "^2.1.0",
+    "google-search-scraper": "0.0.3",
     "request": "latest",
     "serverless": "latest",
     "sha1": "^1.1.1",

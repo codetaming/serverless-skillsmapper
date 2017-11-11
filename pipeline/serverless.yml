@@ -88,6 +88,8 @@ functions:
     handler: retrieveEbiPhoto.retrieveEbiPhoto
   storePhotoUrl:
     handler: storePhotoUrl.storePhotoUrl
+  scrapeDetails:
+    handler: scrapeDetails.scrapeDetails
 stepFunctions:
   stateMachines:
     EmailStateMachine:
