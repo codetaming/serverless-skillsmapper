@@ -135,6 +135,7 @@ stepFunctions:
                           FinishedFact:
                             Type: Pass
                             Result: "Finished"
+                            End: true
                       - StartAt: SendConfirmation
                         States:
                           SendConfirmation:
