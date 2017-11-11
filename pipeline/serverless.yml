@@ -106,38 +106,38 @@ stepFunctions:
                     InputPath: "$.message"
                     ResultPath: "$.result"
                     OutputPath: "$.result"
-                    Next: UnknownTagCheck
+                    Next: Process
                   Process:
                     Type: Parallel
                     End: true
                     Branches:
-                    - StartAt: UnknownCheck
-                      States:
-                        UnknownTagCheck:
-                          Type: Choice
-                          Choices:
-                          - Variable: "$.unknownTagCount"
-                            NumericGreaterThan: 0
-                            Next: ValidateTags
-                          Default: FinishedFact
-                        ValidateTags:
-                          Type: Task
-                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-validateTags"
-                          Next: StoreTagValidity
-                        StoreTagValidity:
-                          Type: Task
-                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeTagValidity"
-                          Next: RetrieveTagDescription
-                        RetrieveTagDescription:
-                          Type: Task
-                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
-                          End: true
-                    - StartAt: SendConfirmation
-                      States:
-                        SendConfirmation:
-                          Type: Task
-                          Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-sendConfirmation"
-                          End: true
+                      - StartAt: UnknownTagCheck
+                        States:
+                          UnknownTagCheck:
+                            Type: Choice
+                            Choices:
+                            - Variable: "$.unknownTagCount"
+                              NumericGreaterThan: 0
+                              Next: ValidateTags
+                            Default: FinishedFact
+                          ValidateTags:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-validateTags"
+                            Next: StoreTagValidity
+                          StoreTagValidity:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeTagValidity"
+                            Next: RetrieveTagDescription
+                          RetrieveTagDescription:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
+                            End: true
+                      - StartAt: SendConfirmation
+                        States:
+                          SendConfirmation:
+                            Type: Task
+                            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-sendConfirmation"
+                            End: true
 resources:
   Resources:
     NewEmail:
