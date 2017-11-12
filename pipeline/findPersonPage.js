@@ -1,6 +1,6 @@
 const scraper = require('google-search-scraper')
 
-module.exports.scrapeDetails = (event, context, callback) => {
+module.exports.findPersonPage = (event, context, callback) => {
   const searchTerm = event.email.replace('@', ' [at] ')
 
   var options = {
@@ -9,6 +9,8 @@ module.exports.scrapeDetails = (event, context, callback) => {
   }
   const output = {}
   output.email = event.email
+  output.hasName = event.hasName
+  output.hasPhoto = event.hasPhoto
   let count = 0
   scraper.search(options, function (err, url) {
     if (err) {
