@@ -168,12 +168,16 @@ stepFunctions:
                           MissingInfoCheck:
                             Type: Choice
                             Choices:
-                              Or:
+                              - Or:
                                 - Variable: "$.hasPhoto"
                                   BooleanEquals: false
                                 - Variable: "$.hasName"
                                   BooleanEquals: false
                               Next: FindPersonPage
+                            Default: FinishedInfo
+                          FinishedInfo:
+                            Type: Pass
+                            End: true
                           FindPersonPage:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-findPersonPage"
