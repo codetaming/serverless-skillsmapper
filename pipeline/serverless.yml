@@ -186,6 +186,18 @@ stepFunctions:
                             Type: Parallel
                             End: true
                             Branches:
+                              - StartAt: MissingDetailsCheck
+                                States:
+                                  MissingDetailsCheck:
+                                    Type: Choice
+                                    Choices:
+                                    - Variable: "$.hasName"
+                                      BooleanEquals: false
+                                      Next: FinishedDetails
+                                    Default: FinishedDetails
+                                  FinishedDetails:
+                                    Type: Pass
+                                    End: true
                               - StartAt: MissingPhotoCheck
                                 States:
                                   MissingPhotoCheck:
