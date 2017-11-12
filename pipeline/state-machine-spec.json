@@ -1,0 +1,168 @@
+{
+  "StartAt": "Store",
+  "States": {
+    "Store": {
+      "Type": "Parallel",
+      "End": true,
+      "Branches": [
+        {
+          "StartAt": "StoreMessage",
+          "States": {
+            "StoreMessage": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeMessage",
+              "InputPath": "$.message",
+              "ResultPath": "$.result",
+              "OutputPath": "$",
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "StoreFact",
+          "States": {
+            "StoreFact": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeFact",
+              "InputPath": "$.message",
+              "ResultPath": "$.result",
+              "OutputPath": "$.result",
+              "Next": "Process"
+            },
+            "Process": {
+              "Type": "Parallel",
+              "End": true,
+              "Branches": [
+                {
+                  "StartAt": "UnknownTagCheck",
+                  "States": {
+                    "UnknownTagCheck": {
+                      "Type": "Choice",
+                      "Choices": [
+                        {
+                          "Variable": "$.unknownTagCount",
+                          "NumericGreaterThan": 0,
+                          "Next": "ValidateTags"
+                        }
+                      ],
+                      "Default": "FinishedTags"
+                    },
+                    "ValidateTags": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-validateTags",
+                      "Next": "StoreTagValidity"
+                    },
+                    "StoreTagValidity": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeTagValidity",
+                      "Next": "RetrieveTagDescription"
+                    },
+                    "RetrieveTagDescription": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription",
+                      "Next": "FinishedTags"
+                    },
+                    "FinishedTags": {
+                      "Type": "Pass",
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "SendConfirmation",
+                  "States": {
+                    "SendConfirmation": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-sendConfirmation",
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "CheckDetails",
+                  "States": {
+                    "CheckDetails": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-checkDetails",
+                      "Next": "MissingInfoCheck"
+                    },
+                    "MissingInfoCheck": {
+                      "Type": "Choice",
+                      "Choices": [
+                        {
+                          "Or": [
+                            {
+                              "Variable": "$.hasPhoto",
+                              "BooleanEquals": false
+                            },
+                            {
+                              "Variable": "$.hasName",
+                              "BooleanEquals": false
+                            }
+                          ],
+                          "Next": "FindPersonPage"
+                        }
+                      ],
+                      "Default": "FinishedInfo"
+                    },
+                    "FinishedInfo": {
+                      "Type": "Pass",
+                      "End": true
+                    },
+                    "FindPersonPage": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-findPersonPage",
+                      "Next": "RetrieveMissingInfo"
+                    },
+                    "RetrieveMissingInfo": {
+                      "Type": "Parallel",
+                      "End": true,
+                      "Branches": {
+                        "MissingPhotoCheck": {
+                          "Type": "Choice",
+                          "Choices": [
+                            {
+                              "Variable": "$.hasPhoto",
+                              "BooleanEquals": false,
+                              "Next": "RetrieveEbiPhoto"
+                            }
+                          ],
+                          "Default": "FinishedPhoto"
+                        },
+                        "RetrieveEbiPhoto": {
+                          "Type": "Task",
+                          "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveEbiPhoto",
+                          "Next": "PhotoToStoreCheck"
+                        },
+                        "PhotoToStoreCheck": {
+                          "Type": "Choice",
+                          "Choices": [
+                            {
+                              "Variable": "$.photoRetrieved",
+                              "BooleanEquals": true,
+                              "Next": "StorePhotoUrl"
+                            }
+                          ],
+                          "Default": "FinishedPhoto"
+                        },
+                        "StorePhotoUrl": {
+                          "Type": "Task",
+                          "Resource": "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storePhotoUrl",
+                          "Next": "FinishedPhoto"
+                        },
+                        "FinishedPhoto": {
+                          "Type": "Pass",
+                          "End": true
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
