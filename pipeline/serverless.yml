@@ -173,7 +173,7 @@ stepFunctions:
                                   BooleanEquals: false
                                 - Variable: "$.hasName"
                                   BooleanEquals: false
-                              Next: FindPersonPage
+                                Next: FindPersonPage
                             Default: FinishedInfo
                           FinishedInfo:
                             Type: Pass
