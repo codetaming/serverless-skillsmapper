@@ -22,7 +22,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs6.10
-  region: ${self:custom.private.region}
+  region: ${self:custom.private.api-region}
   environment:
     NEO4J_URL: ${self:custom.private.neo4j-url}
     DEFAULT_PHOTO_URL: ${self:custom.resources.default-photo-url}

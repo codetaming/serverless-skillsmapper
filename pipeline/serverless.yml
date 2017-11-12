@@ -213,7 +213,7 @@ stepFunctions:
                                     Next: FinishedDetails
                                   FinishedDetails:
                                     Type: Pass
-                                    Next: FinishedInfo
+                                    End: true
                               - StartAt: MissingPhotoCheck
                                 States:
                                   MissingPhotoCheck:
@@ -241,7 +241,7 @@ stepFunctions:
                                     Next: FinishedPhoto
                                   FinishedPhoto:
                                     Type: Pass
-                                    Next: FinishedInfo
+                                    End: true
 resources:
   Resources:
     NewEmail:
