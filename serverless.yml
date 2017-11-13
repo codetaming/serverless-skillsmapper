@@ -6,8 +6,8 @@ plugins:
   - serverless-finch
 
 custom:
-  skillsmapper: ${file(../skillsmapper.yml)}
-  private: ${file(../private.yml)}
+  skillsmapper: ${file(skillsmapper.yml)}
+  private: ${file(private.yml)}
   client:
     bucketName: ${self:custom.skillsmapper.url}
 
