@@ -1,0 +1,17 @@
+service: ${self:custom.skillsmapper.name}-api
+
+frameworkVersion: ">=1.0.0 <2.0.0"
+
+plugins:
+  - serverless-finch
+
+custom:
+  skillsmapper: ${file(../skillsmapper.yml)}
+  private: ${file(../private.yml)}
+  client:
+    bucketName: ${self:custom.skillsmapper.url}
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ${self:custom.private.api-region}
