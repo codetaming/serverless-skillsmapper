@@ -51,5 +51,5 @@ Now using Serverless 1.24.1 which appears to have resolved the issue
 
 https://medium.com/vandium-software/unit-testing-aws-lambda-functions-in-node-js-7ad6c8f5000
 
-## EC@ Deployment
+## EC2 Deployment
 I was getting fed up with deploying Serverless over a slow connection so created an EC2 instance to deploy from. See [aws-scripts](aws-scripts). This is better done using Travis-CI.
