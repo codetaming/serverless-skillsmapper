@@ -1,4 +1,4 @@
-service: ${self:custom.skillsmapper.name}-api
+service: ${self:custom.skillsmapper.name}-client
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
