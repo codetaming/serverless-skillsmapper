@@ -1,0 +1,21 @@
+{
+  "name": "serverless-skillsmapper",
+  "version": "0.1.0",
+  "description": "This is an implementation of the Skills Mapper application using the [Serverless Framework](https://serverless.com/).",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codetaming/serverless-skillsmapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codetaming/serverless-skillsmapper/issues"
+  },
+  "homepage": "https://github.com/codetaming/serverless-skillsmapper#readme",
+  "dependencies": {
+    "serverless-finch": "latest"
+  }
+}
