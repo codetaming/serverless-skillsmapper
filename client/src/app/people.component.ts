@@ -22,7 +22,7 @@ interface Person {
           <img class="person-photo" src="{{person.imageUrl}}" title="{{person.name}}">
         </div>
         <div class="person-name">
-          {{person.name}} [{{person.tagCount}}]
+          <a href="http://profile.skillsmapper.site?hash={{person.hash}}">{{person.name}}</a>
         </div>
       </div>
     </ul>
