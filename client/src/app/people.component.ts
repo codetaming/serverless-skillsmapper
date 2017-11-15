@@ -1,16 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import * as _ from 'lodash';
+import {PeopleService} from './people.service';
+import {Person} from './person';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
-
-interface Person {
-  name: string;
-  hash: string;
-  imageUrl: string;
-  tagCount: number;
-}
 
 @Component({
   selector: 'app-root',
@@ -34,13 +27,10 @@ export class PeopleComponent implements OnInit {
 
   people$: Observable<Person[]>;
 
-  constructor(private http: HttpClient) {
+  constructor(private peopleService: PeopleService) {
   }
 
   ngOnInit() {
-    this.people$ = this.http
-      .get<Person[]>('https://api.skillsmapper.org/profiles')
-      .map(data => _.values(data))
-      .do(console.log);
+    this.people$ = this.peopleService.getAllPeople();
   }
 }
