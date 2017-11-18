@@ -1,0 +1,16 @@
+<div class="container">
+
+  <h1 class="my-4 text-center text-lg-left">People</h1>
+
+  <div class="row text-center text-lg-left" *ngIf="people$ | async as people else noData">
+
+    <div class="person col-lg-3 col-md-4 col-xs-6" *ngFor="let person of people">
+      <a href="http://profile.skillsmapper.site?hash={{person.hash}}" class="d-block mb-4 h-100">
+        <img class="img-fluid img-thumbnail person-photo" src="{{person.imageUrl}}" alt="{{person.name}}"
+             title="{{person.name}}">
+        <div class="person-name">{{person.name}}</div>
+      </a>
+    </div>
+  </div>
+</div>
+<ng-template #noData>No Data Available</ng-template>
