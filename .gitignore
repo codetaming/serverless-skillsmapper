@@ -59,3 +59,5 @@ fabric.properties
 
 /serverless-skillsmapper.iml
 /serverless.pem
+client/src/app/auth0-variables.ts
+/client/src/app/auth/auth0-variables.ts
