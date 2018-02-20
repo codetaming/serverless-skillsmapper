@@ -53,3 +53,7 @@ https://medium.com/vandium-software/unit-testing-aws-lambda-functions-in-node-js
 
 ## EC2 Deployment
 I was getting fed up with deploying Serverless over a slow connection so created an EC2 instance to deploy from. See [aws-scripts](aws-scripts). This is better done using Travis-CI.
+
+## Authentication
+* https://auth0.com/blog/building-serverless-apps-with-aws-lambda/
+* https://auth0.com/docs/integrations/aws-api-gateway/custom-authorizers

@@ -5,15 +5,15 @@ const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'})
 const stepfunctions = new AWS.StepFunctions()
 
 module.exports.repopulateFromTable = (event, context, callback) => {
-  const tableName = process.env.MESSAGES_RECEIVED_TABLE
-  dynamodb.scan({TableName: tableName, Limit: 10}, function (err, data) {
+  const tableName = process.env.MESSAGES_BACKUP_TABLE
+  dynamodb.scan({TableName: tableName, Limit: 1000}, function (err, data) {
     if (err) {
       context.done('error', 'reading dynamodb failed: ' + err)
     }
     for (var i in data.Items) {
       i = data.Items[i]
       const payload = {
-        id: i.messageId.S,
+        id: i.id.S,
         source: i.source.S,
         type: i.type.S,
         tags: i.tags.S,

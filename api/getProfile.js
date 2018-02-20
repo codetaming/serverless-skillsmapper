@@ -21,7 +21,7 @@ module.exports.getProfile = (event, context, callback) => {
       'match (p)-[:HAS_TITLE]->(t:Title) ' +
       'match (p)-[:MEMBER_OF]->(g:Group) ' +
       'match (p)-[:IS_IN]->(r:Room) ' +
-      'return p.name, p.email, p.hash, t.name, collect(g.name), r.name, p.imageUrl'
+      'return p.name, p.hash, t.name, collect(g.name), r.name, p.imageUrl'
     statements.push({
       'statement': skillProfileQuery,
       'parameters': {filter: filter}
@@ -39,12 +39,11 @@ module.exports.getProfile = (event, context, callback) => {
           if (data.length === 1) {
             const row = data[0].row
             profile.name = row[0]
-            profile.email = row[1]
-            profile.hash = row[2]
-            profile.title = row[3]
-            profile.group = row[4]
-            profile.room = row[5]
-            profile.imageUrl = row[6]
+            profile.hash = row[1]
+            profile.title = row[2]
+            profile.group = row[3]
+            profile.room = row[4]
+            profile.imageUrl = row[5]
             if (!profile.imageUrl) {
               console.log('no image')
               informMissingPhoto(profile, context)
