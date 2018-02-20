@@ -96,6 +96,11 @@ functions:
     handler: retrieveDetails.retrieveDetails
   storeDetails:
     handler: storeDetails.storeDetails
+  repopulateFromTable:
+    handler: repopulateFromTable.repopulateFromTable
+    environment:
+      MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
+      STATEMACHINE_ARN: ${self:resources.Outputs.EmailStateMachine.Value}
 stepFunctions:
   stateMachines:
     EmailStateMachine:
