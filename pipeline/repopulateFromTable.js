@@ -20,7 +20,7 @@ module.exports.repopulateFromTable = (event, context, callback) => {
           source: i.source.S,
           type: i.type.S,
           tags: i.tags.S,
-          people: ''
+          people: []
         }
         startStateMachine(payload)
       }
