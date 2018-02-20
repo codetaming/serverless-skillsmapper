@@ -87,6 +87,7 @@ functions:
       MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
   storeFact:
     handler: storeFact.storeFact
+    timeout: 300
   validateTags:
     handler: validateTags.validateTags
   storeTagValidity:
@@ -111,6 +112,7 @@ functions:
     handler: storeDetails.storeDetails
   repopulateFromTable:
     handler: repopulateFromTable.repopulateFromTable
+    timeout: 300
     environment:
       MESSAGES_BACKUP_TABLE: ${self:custom.tables.messages-with-time}
       STATEMACHINE_ARN: ${self:resources.Outputs.EmailStateMachine.Value}
