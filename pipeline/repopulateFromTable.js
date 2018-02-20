@@ -7,7 +7,7 @@ const stepfunctions = new AWS.StepFunctions()
 module.exports.repopulateFromTable = (event, context, callback) => {
   const tableName = process.env.MESSAGES_BACKUP_TABLE
   console.log(tableName)
-  dynamodb.scan({TableName: tableName, Limit: 5}, function (err, data) {
+  dynamodb.scan({TableName: tableName, Limit: 1000}, function (err, data) {
     if (err) {
       context.done('error', 'reading ' + tableName + ' failed: ' + err)
     } else {
