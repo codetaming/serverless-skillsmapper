@@ -9,7 +9,7 @@ module.exports.repopulateFromTable = (event, context, callback) => {
   console.log(tableName)
   dynamodb.scan({TableName: tableName, Limit: 1000}, function (err, data) {
     if (err) {
-      context.done('error', 'reading dynamodb failed: ' + err)
+      context.done('error', 'reading ' + tableName + ' failed: ' + err)
     } else {
       data.Items.sort(function (a, b) { return (a.time.S > b.time.S) ? 1 : ((b.time.S > a.time.S) ? -1 : 0) })
       for (var i in data.Items) {

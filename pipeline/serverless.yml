@@ -44,7 +44,7 @@ provider:
             - ${self:custom.tables.messages-received}
     - Effect: Allow
       Action:
-        - dynamodb:Scan
+        - dynamodb:*
       Resource:
         Fn::Join:
           - ""
