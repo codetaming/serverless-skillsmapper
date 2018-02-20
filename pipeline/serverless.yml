@@ -99,7 +99,7 @@ functions:
   repopulateFromTable:
     handler: repopulateFromTable.repopulateFromTable
     environment:
-      MESSAGES_BACKUP_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-with-time}
+      MESSAGES_BACKUP_TABLE: ${self:custom.tables.messages-with-time}
       STATEMACHINE_ARN: ${self:resources.Outputs.EmailStateMachine.Value}
 stepFunctions:
   stateMachines:
