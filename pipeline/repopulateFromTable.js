@@ -10,31 +10,22 @@ module.exports.repopulateFromTable = (event, context, callback) => {
   dynamodb.scan({TableName: tableName, Limit: 1000}, function (err, data) {
     if (err) {
       context.done('error', 'reading dynamodb failed: ' + err)
-    }
-    data.Items.sort(function (a, b) { return (a.time.S > b.time.S) ? 1 : ((b.time.S > a.time.S) ? -1 : 0) })
-    for (var i in data.Items) {
-      i = data.Items[i]
-      console.log(JSON.stringify(i))
-      const payload = {
-        id: i.id.S,
-        source: i.source.S,
-        type: i.type.S,
-        tags: i.tags.S,
-        people: ''
+    } else {
+      data.Items.sort(function (a, b) { return (a.time.S > b.time.S) ? 1 : ((b.time.S > a.time.S) ? -1 : 0) })
+      for (var i in data.Items) {
+        i = data.Items[i]
+        console.log(JSON.stringify(i))
+        const payload = {
+          id: i.id.S,
+          source: i.source.S,
+          type: i.type.S,
+          tags: i.tags.S,
+          people: ''
+        }
+        startStateMachine(payload)
       }
-      startStateMachine(payload)
     }
   })
-}
-
-function sleepThenAct (payload, delay) {
-  sleepFor(delay)
-  startStateMachine(payload)
-}
-
-function sleepFor (sleepDuration) {
-  var now = new Date().getTime()
-  while (new Date().getTime() < now + sleepDuration) { /* do nothing */ }
 }
 
 function startStateMachine (payload) {
