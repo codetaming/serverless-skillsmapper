@@ -22,7 +22,7 @@ module.exports.repopulateFromTable = (event, context, callback) => {
         tags: i.tags.S,
         people: ''
       }
-      sleepThenAct(payload, 100)
+      startStateMachine(payload)
     }
   })
 }
