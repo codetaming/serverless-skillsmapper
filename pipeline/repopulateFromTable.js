@@ -22,10 +22,23 @@ module.exports.repopulateFromTable = (event, context, callback) => {
           tags: i.tags.S,
           people: []
         }
-        startStateMachine(payload)
+        sleepThenAct(payload, 100)
       }
     }
   })
+  let result = 'success'
+  console.log(result)
+  callback(null, result)
+}
+
+function sleepThenAct (payload, delay) {
+  sleepFor(delay)
+  startStateMachine(payload)
+}
+
+function sleepFor (sleepDuration) {
+  var now = new Date().getTime()
+  while (new Date().getTime() < now + sleepDuration) { /* do nothing */ }
 }
 
 function startStateMachine (payload) {
