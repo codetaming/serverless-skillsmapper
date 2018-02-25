@@ -32,7 +32,7 @@ provider:
       Action:
        - "sqs:*"
       Resource:
-       - "Ref" : "BatchMessagesQueue"
+       - arn:aws:sqs:*:*:${self:custom.skillsmapper.name}-${self:custom.queues.batch-message-queue}
     - Effect: Allow
       Action:
         - dynamodb:PutItem
@@ -93,7 +93,6 @@ functions:
       MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
   storeFact:
     handler: storeFact.storeFact
-    timeout: 300
   validateTags:
     handler: validateTags.validateTags
   storeTagValidity:
@@ -121,6 +120,10 @@ functions:
     timeout: 300
     environment:
       MESSAGES_BACKUP_TABLE: ${self:custom.tables.messages-with-time}
+      BATCH_MESSAGE_QUEUE_URL: https://${self:custom.private.region}.queue.amazonaws.com/${self:custom.private.account-id}/${self:custom.skillsmapper.name}-${self:custom.queues.batch-message-queue}
+  processBatchedMessage:
+    handler: processBatchedMessage.processBatchedMessage
+    environment:
       BATCH_MESSAGE_QUEUE_URL: https://${self:custom.private.region}.queue.amazonaws.com/${self:custom.private.account-id}/${self:custom.skillsmapper.name}-${self:custom.queues.batch-message-queue}
       STATEMACHINE_ARN: ${self:resources.Outputs.EmailStateMachine.Value}
 stepFunctions:
