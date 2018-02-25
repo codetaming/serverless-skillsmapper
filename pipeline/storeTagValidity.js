@@ -31,9 +31,9 @@ module.exports.storeTagValidity = (event, context, callback) => {
             tagsSetValid.push(tag)
             if (tagsSetValid.length === message.validTags.length) {
               output.tagsSetValid = tagsSetValid
-              callback(null, output)
             }
           }
+          callback(null, output)
         }
       })
   }
