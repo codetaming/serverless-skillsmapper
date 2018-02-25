@@ -30,6 +30,11 @@ provider:
        - "Ref" : "MessageReceived"
     - Effect: Allow
       Action:
+       - "sqs:*"
+      Resource:
+       - "Ref" : "BatchMessagesQueue"
+    - Effect: Allow
+      Action:
         - dynamodb:PutItem
       Resource:
         Fn::Join:
@@ -116,7 +121,7 @@ functions:
     timeout: 300
     environment:
       MESSAGES_BACKUP_TABLE: ${self:custom.tables.messages-with-time}
-      BATCH_MESSAGE_QUEUE: ${self:custom.skillsmapper.name}-${self:custom.queues.batch-message-queue}
+      BATCH_MESSAGE_QUEUE_URL: https://${self:custom.private.region}.queue.amazonaws.com/${self:custom.private.account-id}/${self:custom.skillsmapper.name}-${self:custom.queues.batch-message-queue}
       STATEMACHINE_ARN: ${self:resources.Outputs.EmailStateMachine.Value}
 stepFunctions:
   stateMachines:

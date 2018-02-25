@@ -2,7 +2,7 @@
 
 const AWS = require('aws-sdk')
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'})
-const stepfunctions = new AWS.StepFunctions()
+const sqs = new AWS.SQS()
 
 module.exports.repopulateFromTable = (event, context, callback) => {
   const tableName = process.env.MESSAGES_BACKUP_TABLE
@@ -22,34 +22,20 @@ module.exports.repopulateFromTable = (event, context, callback) => {
           tags: i.tags.S,
           people: []
         }
-        sleepThenAct(payload, 100)
+        var params = {
+          MessageBody: JSON.stringify(payload),
+          QueueUrl: process.env.BATCH_MESSAGE_QUEUE_URL
+        }
+        sqs.sendMessage(params, function (err, data) {
+          if (err) {
+            console.log('error:', 'Fail Send Message' + err)
+          } else {
+            console.log('data:', data.MessageId)
+          }
+        })
       }
     }
   })
   let result = 'success'
-  console.log(result)
   callback(null, result)
-}
-
-function sleepThenAct (payload, delay) {
-  sleepFor(delay)
-  startStateMachine(payload)
-}
-
-function sleepFor (sleepDuration) {
-  var now = new Date().getTime()
-  while (new Date().getTime() < now + sleepDuration) { /* do nothing */ }
-}
-
-function startStateMachine (payload) {
-  const stateMachineArn = process.env.STATEMACHINE_ARN
-  const params = {
-    stateMachineArn,
-    'input': JSON.stringify({message: payload})
-  }
-  console.log(JSON.stringify(params))
-  stepfunctions.startExecution(params, function (err, data) {
-    if (err) console.log(err, err.stack)
-    else console.log(data)
-  })
 }
