@@ -135,7 +135,7 @@ stepFunctions:
         States:
           Store:
             Type: Parallel
-            End: true
+            Next: ProcessBatchedMessage
             Branches:
               - StartAt: StoreMessage
                 States:
@@ -272,6 +272,11 @@ stepFunctions:
                                   FinishedPhoto:
                                     Type: Pass
                                     End: true
+          ProcessBatchedMessage:
+            Type: Task
+            End: true
+            Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-processBatchedMessage"
+
 resources:
   Resources:
     NewEmail:
