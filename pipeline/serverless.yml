@@ -176,7 +176,7 @@ stepFunctions:
                           StoreTagValidity:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-storeTagValidity"
-                            Next: RetrieveTagDescription
+                            Next: FinishedTags
                           RetrieveTagDescription:
                             Type: Task
                             Resource: "arn:aws:lambda:${self:custom.private.region}:${self:custom.private.account-id}:function:${self:service}-${opt:stage}-retrieveTagDescription"
