@@ -93,6 +93,7 @@ functions:
       MESSAGES_RECEIVED_TABLE: ${self:custom.skillsmapper.name}-${self:custom.tables.messages-received}
   storeFact:
     handler: storeFact.storeFact
+    timeout: 10
   validateTags:
     handler: validateTags.validateTags
   storeTagValidity:

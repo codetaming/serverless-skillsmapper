@@ -26,12 +26,12 @@ module.exports.sendConfirmation = (event, context, callback) => {
     },
     Source: 'noreply@skillsmapper.org'
   }
-  //ses.sendEmail(eParams, function (err, data) {
+  // ses.sendEmail(eParams, function (err, data) {
   //  if (err) {
   //    callback(err, null)
   //  } else {
-  //    const output = {'emailSentTo': message.email}
+  const output = {'emailSentTo': message.email}
   callback(null, output)
   //  }
-  //})
+  // })
 }
