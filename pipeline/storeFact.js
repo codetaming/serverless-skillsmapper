@@ -90,7 +90,7 @@ module.exports.storeFact = (event, context, callback) => {
         })
         const createRelationshipQuery = 'MATCH (person:Person { email: {email} })' +
           ' MATCH (tag:Tag { name: {name} })' +
-          ' CREATE UNIQUE (person)-[:' + type + ' { started: timestamp() } ]-(tag)'
+          ' MERGE (person)-[:' + type + ' { started: timestamp() } ]-(tag)'
         console.log(createRelationshipQuery)
         statements.push({
           'statement': createRelationshipQuery,
@@ -103,7 +103,7 @@ module.exports.storeFact = (event, context, callback) => {
       for (let i = 0; i < message.people.length; i++) {
         const createRelationshipQuery = 'MATCH (person:Person { email: {email} })' +
           ' MATCH (otherPerson:Person { email: {otherPerson} })' +
-          ' CREATE UNIQUE (person)-[:' + type + ' { started: timestamp() } ]->(otherPerson)'
+          ' MERGE (person)-[:' + type + ' { started: timestamp() } ]->(otherPerson)'
         statements.push({
           'statement': createRelationshipQuery,
           'parameters': {otherPerson: message.people[i], email: message.source}
@@ -114,7 +114,7 @@ module.exports.storeFact = (event, context, callback) => {
       if (twitterHandles.length === 1 && message.source.length > 1) {
         const createTwitterLinkQuery = 'MATCH (person:Person { email: {email} })' +
           ' MATCH (twitter:Twitter { handle: {handle} })' +
-          ' CREATE UNIQUE (person)-[:IS_ALSO]->(twitter)'
+          ' MERGE (person)-[:IS_ALSO]->(twitter)'
         statements.push({
           'statement': createTwitterLinkQuery,
           'parameters': {email: message.source, handle: twitterHandles[0]}
@@ -169,7 +169,7 @@ module.exports.storeFact = (event, context, callback) => {
       const projectName = 'test-project'
       const createProjectQuery = 'MATCH (person:Person { email: {email} })' +
         ' MERGE (project:Project { name: {name} })' +
-        ' CREATE UNIQUE (person)-[:I_WORKED_ON]->(project)'
+        ' MERGE (person)-[:I_WORKED_ON]->(project)'
       statements.push({
         'statement': createProjectQuery,
         'parameters': {email: message.source, name: projectName}
@@ -178,7 +178,7 @@ module.exports.storeFact = (event, context, callback) => {
       for (let j = 0; j < tags.length; j++) {
         const createProjectQuery = 'MATCH (project:Project { name: {projectName} })' +
           ' MATCH (tag:Tag { name: {name} })' +
-          ' CREATE UNIQUE (project)-[:USED]->(tag)'
+          ' MERGE (project)-[:USED]->(tag)'
         statements.push({
           'statement': createProjectQuery,
           'parameters': {projectName: projectName, name: tags[j]}
