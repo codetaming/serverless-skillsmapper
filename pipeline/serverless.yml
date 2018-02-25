@@ -156,6 +156,9 @@ stepFunctions:
                     ResultPath: "$.result"
                     OutputPath: "$.result"
                     Next: Process
+                    Catch:
+                      ErrorEquals: States.ALL
+                      Next: ProcessBatchedMessage
                   Process:
                     Type: Parallel
                     End: true
