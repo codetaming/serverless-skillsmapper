@@ -83,6 +83,7 @@ module.exports.storeFact = (event, context, callback) => {
       for (let i = 0; i < tags.length; i++) {
         const endRelationshipQuery = 'MATCH (:Person { email: {email} })-[r]-(:Tag { name: {name} })' +
           ' SET r.ended = timestamp() '
+        console.log(endRelationshipQuery)
         statements.push({
           'statement': endRelationshipQuery,
           'parameters': {name: tags[i], email: message.source}
@@ -90,6 +91,7 @@ module.exports.storeFact = (event, context, callback) => {
         const createRelationshipQuery = 'MATCH (person:Person { email: {email} })' +
           ' MATCH (tag:Tag { name: {name} })' +
           ' CREATE UNIQUE (person)-[:' + type + ' { started: timestamp() } ]-(tag)'
+        console.log(createRelationshipQuery)
         statements.push({
           'statement': createRelationshipQuery,
           'parameters': {name: tags[i], email: message.source}
