@@ -10,6 +10,7 @@ custom:
   private: ${file(../private.yml)}
   events: ${file(../events.yml)}
   tables: ${file(../tables.yml)}
+  queues: ${file(../queues.yml)}
 
 provider:
   name: aws
@@ -115,6 +116,7 @@ functions:
     timeout: 300
     environment:
       MESSAGES_BACKUP_TABLE: ${self:custom.tables.messages-with-time}
+      BATCH_MESSAGE_QUEUE: ${self:custom.skillsmapper.name}-${self:custom.queues.batch-message-queue}
       STATEMACHINE_ARN: ${self:resources.Outputs.EmailStateMachine.Value}
 stepFunctions:
   stateMachines:
@@ -272,6 +274,10 @@ resources:
       Type: AWS::SNS::Topic
       Properties:
         TopicName: ${self:custom.skillsmapper.name}-${self:custom.events.message-received}
+    BatchMessagesQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:custom.skillsmapper.name}-${self:custom.queues.batch-message-queue}
     MessagesReceivedDbTable:
       Type: AWS::DynamoDB::Table
       Properties:
